@@ -13,9 +13,8 @@ public class SASS extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-        //test commit comment
+		Art.load();
+        Sound.load();
 	}
 
 	@Override
