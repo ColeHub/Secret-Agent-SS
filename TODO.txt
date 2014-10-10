@@ -6,7 +6,9 @@
 + Create scene art
 //SOUND
 + Create at least one song for the game
++ Create at least one loop for menus
 + Create misc sounds with bfxr
 //DESIGN
 ++ Level
 + Dialog
++ Inventory
