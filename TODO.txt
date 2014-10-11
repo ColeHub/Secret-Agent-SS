@@ -1,9 +1,8 @@
 //GAMEPLAY
 ++ Get scene set up
-+ Get movement
++ Create better more flowy movement
++ Get Menu
 //ART
-++ Determine scale for pixel art
-++ Determine running resolution
 + Create player spritesheet
 + Create scene art
 //SOUND
@@ -12,5 +11,6 @@
 + Create misc sounds with bfxr
 //DESIGN
 ++ Level
++ Menu
 + Dialog
 + Inventory
