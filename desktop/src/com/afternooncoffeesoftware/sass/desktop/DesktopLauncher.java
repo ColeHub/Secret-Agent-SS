@@ -7,6 +7,10 @@ import com.afternooncoffeesoftware.sass.SASS;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new SASS(), config);
+        new LwjglApplication(new SASS(), config);
+        config.title = "Secret Agent SS Alpha";
+        config.height = 480;
+        config.width = 800;
+
 	}
 }
