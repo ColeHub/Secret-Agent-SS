@@ -2,6 +2,8 @@
 ++ Get scene set up
 + Get movement
 //ART
+++ Determine scale for pixel art
+++ Determine running resolution
 + Create player spritesheet
 + Create scene art
 //SOUND
