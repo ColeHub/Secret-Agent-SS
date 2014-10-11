@@ -8,7 +8,12 @@ import com.badlogic.gdx.Input.Keys;
  */
 public class Input {
 
-    public static void render() {
+    public static void menu() {
+        if (Gdx.input.isKeyPressed(Keys.LEFT)) Art.player.x -= 200 * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Keys.RIGHT)) Art.player.x += 200 * Gdx.graphics.getDeltaTime();
+    }
+
+    public static void level() {
         if (Gdx.input.isKeyPressed(Keys.LEFT)) Art.player.x -= 200 * Gdx.graphics.getDeltaTime();
         if (Gdx.input.isKeyPressed(Keys.RIGHT)) Art.player.x += 200 * Gdx.graphics.getDeltaTime();
     }

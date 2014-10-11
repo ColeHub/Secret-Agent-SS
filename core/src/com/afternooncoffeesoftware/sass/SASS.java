@@ -30,6 +30,6 @@ public class SASS extends ApplicationAdapter {
         Art.sprite.draw(Art.batch);
         Art.sprite.setPosition(Art.player.x, Art.player.y);
         Art.batch.end();
-        Input.render();
+        Input.level();
     }
 }
