@@ -4,12 +4,14 @@ import com.badlogic.gdx.*;
 
 public class SASS extends Game {
 
-    PauseMenu pauseMenu;
     @Override
     public void create() {
-        this.setScreen(new Menu(this));
+        //load files
         Art.load();
         Sound.load();
+
+        //change screen to menu screen on startup
+        this.setScreen(new Menu(this));
 
     }
 

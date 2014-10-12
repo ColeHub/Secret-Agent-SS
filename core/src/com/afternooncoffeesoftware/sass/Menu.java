@@ -39,7 +39,10 @@ public class Menu implements Screen {
 
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.X)) {
             Sound.select.play(0.5f);
+
+            //change screen to the level
             game.setScreen(new Level(game));
+            //cleanup
             dispose();
         }
 

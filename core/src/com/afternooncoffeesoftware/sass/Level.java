@@ -5,6 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Created by cole on 2014-10-10.
@@ -15,10 +18,17 @@ public class Level implements Screen {
     Player player;
     OrthographicCamera camera;
     Input input;
-    PauseMenu pauseMenu;
+    SpriteBatch batch;
+
+    public static TextureRegion currentFrame, currentFrameFlip;
+
+
+    static float stateTime;
 
     public Level(final SASS sass) {
+        Art.load();
         this.game = sass;
+        batch = new SpriteBatch();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -27,8 +37,7 @@ public class Level implements Screen {
         Sound.load();
         player = new Player((800 / 3) * 2, (480 / 3));
 
-
-
+        stateTime = 0f;
     }
 
     public void render(float delta) {
@@ -44,18 +53,30 @@ public class Level implements Screen {
         Art.batch.setProjectionMatrix(camera.combined);
 
         //render scene
-        Art.batch.begin();
-        font.draw(Art.batch, str, 200, 300);
-        Player.sprite.draw(Art.batch);
+        batch.begin();
+        Art.levelBgSprite.draw(batch);
+        Art.levelBgSprite.setPosition(Art.levelBgBox.x, Art.levelBgBox.y);
+        font.draw(batch, str, 10, 460);
+        Player.sprite.draw(batch);
         Player.sprite.setPosition(player.box.x, player.box.y);
 
-        Art.batch.end();
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentFrame = Art.walkAnimation.getKeyFrame(stateTime, true);
 
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
             Sound.select.play(0.5f);
             //this.hide();
-            game.setScreen(new PauseMenu(game));
+            game.setScreen(new Menu(game));
         }
+
+        if (input.walkRight) {
+            player.sprite.setRegion(currentFrame);
+        }
+        if (input.walkLeft) {
+            player.sprite.setRegion(currentFrame);
+        }
+
+        batch.end();
 
         input.level();
     }
