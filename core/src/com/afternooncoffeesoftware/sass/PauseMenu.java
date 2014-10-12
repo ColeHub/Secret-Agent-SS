@@ -1,50 +1,50 @@
 package com.afternooncoffeesoftware.sass;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.*;
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * Created by cole on 2014-10-10.
+ * Created by cole on 2014-10-11.
+ * This is so broken at the moment.
+ * Use at your own risk.
  */
-public class Menu implements Screen {
+
+public class PauseMenu implements Screen {
+
     final SASS game;
     OrthographicCamera camera;
-    public static SpriteBatch batch;
-    Input input;
+    SpriteBatch batch;
+    com.afternooncoffeesoftware.sass.Input input;
 
-    public Menu(final SASS sass) {
+    public PauseMenu(final SASS sass) {
         game = sass;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
 
-
     }
 
-    @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 0.0f);
+        Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-
         batch.begin();
-        Art.titleSprite.draw(batch);
+        Art.lampSprite.draw(batch);
 
-        if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.X)) {
+        if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
             Sound.select.play(0.5f);
-            game.setScreen(new Level(game));
-            dispose();
+            game.getScreen();
         }
 
         batch.end();
+
+
         input.menu();
+
     }
 
     @Override
@@ -69,5 +69,7 @@ public class Menu implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
     }
 }
+

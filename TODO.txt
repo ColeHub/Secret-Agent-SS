@@ -1,7 +1,8 @@
 //GAMEPLAY
 ++ Get scene set up
-+ Create better more flowy movement
-+ Get Menu
++ Create better more flowy movement (acceleration)
++ Get menu
++ Fix pause menu
 //ART
 + Create player spritesheet
 + Create scene art
