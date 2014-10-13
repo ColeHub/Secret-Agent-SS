@@ -13,12 +13,10 @@ public class Player {
     public static Sprite sprite;
 
     public Player(int x, int y) {
-        this.x = x;
-        this.y = y;
 
         box = new Rectangle();
-        box.x = (800 / 3) * 2;
-        box.y = (480 / 3);
+        box.x = x;
+        box.y = y;
         box.setHeight(64);
         box.setWidth(64);
 

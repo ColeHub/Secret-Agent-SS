@@ -19,25 +19,35 @@ public class Level implements Screen {
     OrthographicCamera camera;
     Input input;
     SpriteBatch batch;
+    NPC guard;
 
-    public static TextureRegion currentFrame, currentFrameFlip;
+    public static TextureRegion currentFrame;
+    boolean last = false;
 
+    public int globalOffset = 0;
 
     static float stateTime;
 
     public Level(final SASS sass) {
-        Art.load();
+
         this.game = sass;
         batch = new SpriteBatch();
 
+
+        Art.load();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
         Art.load();
         Sound.load();
-        player = new Player((800 / 3) * 2, (480 / 3));
+        player = new Player((800 / 3) * 2, (480 / 4));
+        guard = new NPC(800 / 3, 480 / 4, Art.nekkidImg);
+
+        input = new Input(this);
 
         stateTime = 0f;
+
+
     }
 
     public void render(float delta) {
@@ -52,32 +62,51 @@ public class Level implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Art.batch.setProjectionMatrix(camera.combined);
 
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentFrame = Art.walkAnimation.getKeyFrame(stateTime, true);
+
+        Art.levelBgBox.x = globalOffset - 200;
+
         //render scene
         batch.begin();
         Art.levelBgSprite.draw(batch);
         Art.levelBgSprite.setPosition(Art.levelBgBox.x, Art.levelBgBox.y);
         font.draw(batch, str, 10, 460);
-        Player.sprite.draw(batch);
-        Player.sprite.setPosition(player.box.x, player.box.y);
 
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentFrame = Art.walkAnimation.getKeyFrame(stateTime, true);
+        guard.sprite.draw(batch);
+        player.sprite.draw(batch);
+        guard.sprite.setPosition(globalOffset + guard.box.x, guard.box.y);
+        player.sprite.setPosition(player.box.x, player.box.y);
 
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
             Sound.select.play(0.5f);
-            //this.hide();
-            game.setScreen(new Menu(game));
+
+            game.setScreen(new PauseMenu(game, this));
+            this.hide();
         }
 
         if (input.walkRight) {
+            if (currentFrame.isFlipX()) currentFrame.flip(true, false);
             player.sprite.setRegion(currentFrame);
+            last = false;
         }
         if (input.walkLeft) {
+            if (!currentFrame.isFlipX()) currentFrame.flip(true, false);
             player.sprite.setRegion(currentFrame);
+            last = true;
+        }
+        if (!input.walkLeft && !input.walkRight) {
+            if (!last) {
+                if (Art.playerRegIdle.isFlipX()) Art.playerRegIdle.flip(true, false);
+                player.sprite.setRegion(Art.playerRegIdle);
+            }
+            if (last) {
+                if (!Art.playerRegIdle.isFlipX()) Art.playerRegIdle.flip(true, false);
+                player.sprite.setRegion(Art.playerRegIdle);
+            }
         }
 
         batch.end();
-
         input.level();
     }
 

@@ -15,8 +15,8 @@ import com.badlogic.gdx.math.Rectangle;
 public class Art {
     public static SpriteBatch batch;
     public static OrthographicCamera camera;
-    public static Texture playerImg;
-    public static TextureRegion playerRegIdle;
+    public static Texture nekkidImg;
+    public static TextureRegion playerRegIdle, playerRegIdleFlip;
     public static Rectangle levelBgBox;
     public static Texture levelBgTexture;
     public static Sprite levelBgSprite;
@@ -32,20 +32,22 @@ public class Art {
 
     public static void load() {
 
-
         sheet = new Texture("king.png");
         playerRegIdle = new TextureRegion(sheet, 32, 32);
+        playerRegIdleFlip = playerRegIdle;
+        playerRegIdleFlip.flip(true, false);
         TextureRegion[][] tmp = TextureRegion.split(sheet, 32, 32);
         walkFrames = new TextureRegion[2];
         int index = 0;
         for (int i = 0; i <= 1; i++) {
             walkFrames[index++] = tmp[0][i];
+
         }
         walkAnimation = new Animation(0.3f, walkFrames);
 
         batch = new SpriteBatch();
 
-        playerImg = new Texture("nekkid.png");
+        nekkidImg = new Texture("nekkid.png");
 
         titleImg = new Texture("title.png");
         titleSprite = new Sprite(titleImg);
@@ -59,7 +61,7 @@ public class Art {
         lampSprite.setPosition(200, 200);
 
         levelBgBox = new Rectangle();
-        levelBgBox.x = -200;
+        levelBgBox.x = 0;
         levelBgBox.y = 0;
         levelBgBox.setWidth(1547);
         levelBgBox.setHeight(480);

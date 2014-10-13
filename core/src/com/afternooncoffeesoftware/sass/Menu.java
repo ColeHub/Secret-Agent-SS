@@ -12,9 +12,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class Menu implements Screen {
     final SASS game;
+
     OrthographicCamera camera;
     public static SpriteBatch batch;
-    Input input;
 
     public Menu(final SASS sass) {
         game = sass;
@@ -42,12 +42,12 @@ public class Menu implements Screen {
 
             //change screen to the level
             game.setScreen(new Level(game));
+
             //cleanup
             dispose();
         }
 
         batch.end();
-        input.menu();
     }
 
     @Override

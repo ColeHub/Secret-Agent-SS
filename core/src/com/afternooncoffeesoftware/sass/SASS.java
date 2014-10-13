@@ -3,9 +3,10 @@ package com.afternooncoffeesoftware.sass;
 import com.badlogic.gdx.*;
 
 public class SASS extends Game {
-
+    Global global;
     @Override
     public void create() {
+        global = new Global(this);
         //load files
         Art.load();
         Sound.load();
