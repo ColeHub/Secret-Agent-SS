@@ -8,24 +8,24 @@ import com.badlogic.gdx.math.Rectangle;
  * Created by cole on 2014-10-12.
  */
 public class NPC {
-    public int x = 0;
-    public int y = 0;
+    public int x;
+    public int y;
     public static Rectangle box;
     public static Sprite sprite;
 
     public NPC(int x, int y, Texture texture) {
-        this.x = x;
-        this.y = y;
 
         box = new Rectangle();
-        box.x = (800 / 3) * 2;
-        box.y = (480 / 3);
+        box.x = x;
+        box.y = y;
         box.setHeight(64);
         box.setWidth(64);
+
 
         sprite = new Sprite(texture);
         sprite.scale(4);
         sprite.setPosition(box.x, box.y);
+
 
     }
 

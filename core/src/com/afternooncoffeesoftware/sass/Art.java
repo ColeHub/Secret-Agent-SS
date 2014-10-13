@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import sun.jvm.hotspot.asm.sparc.SPARCRegister;
 
 /**
  * Created by cole on 2014-10-10.
@@ -15,8 +16,8 @@ import com.badlogic.gdx.math.Rectangle;
 public class Art {
     public static SpriteBatch batch;
     public static OrthographicCamera camera;
-    public static Texture playerImg;
-    public static TextureRegion playerRegIdle;
+    public static Texture nekkidImg;
+    public static TextureRegion playerRegIdle, playerRegIdleFlip;
     public static Rectangle levelBgBox;
     public static Texture levelBgTexture;
     public static Sprite levelBgSprite;
@@ -25,6 +26,9 @@ public class Art {
     public static Sprite titleSprite;
     public static Sprite lampSprite;
 
+    public static Texture startImg, exitImg, optionsImg;
+    public static Sprite menuCurrentSprite;
+
     //spritesheet animating test crap
     static Animation walkAnimation;
     static Texture sheet;
@@ -32,22 +36,32 @@ public class Art {
 
     public static void load() {
 
-
         sheet = new Texture("king.png");
         playerRegIdle = new TextureRegion(sheet, 32, 32);
+        playerRegIdleFlip = playerRegIdle;
+        playerRegIdleFlip.flip(true, false);
         TextureRegion[][] tmp = TextureRegion.split(sheet, 32, 32);
         walkFrames = new TextureRegion[2];
         int index = 0;
         for (int i = 0; i <= 1; i++) {
             walkFrames[index++] = tmp[0][i];
+
         }
         walkAnimation = new Animation(0.3f, walkFrames);
 
         batch = new SpriteBatch();
 
-        playerImg = new Texture("nekkid.png");
+        nekkidImg = new Texture("nekkid.png");
 
         titleImg = new Texture("title.png");
+        startImg = new Texture("start.png");
+        exitImg = new Texture("exit.png");
+        optionsImg = new Texture("options.png");
+        menuCurrentSprite = new Sprite(startImg);
+        menuCurrentSprite.scale(3);
+        menuCurrentSprite.setOrigin(0, 0);
+        menuCurrentSprite.setPosition(0, 0);
+
         titleSprite = new Sprite(titleImg);
         titleSprite.scale(3);
         titleSprite.setOrigin(0, 0);
@@ -59,7 +73,7 @@ public class Art {
         lampSprite.setPosition(200, 200);
 
         levelBgBox = new Rectangle();
-        levelBgBox.x = -200;
+        levelBgBox.x = 0;
         levelBgBox.y = 0;
         levelBgBox.setWidth(1547);
         levelBgBox.setHeight(480);

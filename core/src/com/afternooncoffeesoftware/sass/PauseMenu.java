@@ -13,38 +13,41 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 
 public class PauseMenu implements Screen {
-
     final SASS game;
-    OrthographicCamera camera;
-    SpriteBatch batch;
-    com.afternooncoffeesoftware.sass.Input input;
+    final Level level;
 
-    public PauseMenu(final SASS sass) {
+    OrthographicCamera camera;
+    public static SpriteBatch batch;
+
+    public PauseMenu(final SASS sass, final Level level) {
         game = sass;
+        this.level = level;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
 
+
     }
 
+    @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+        Gdx.gl.glClearColor(1, 1, 1, 0.5f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+
         batch.begin();
-        Art.lampSprite.draw(batch);
-
-        if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
-            Sound.select.play(0.5f);
-            game.getScreen();
-        }
-
         batch.end();
 
+        if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.X)) {
+            Sound.select.play(0.5f);
 
-        input.menu();
-
+            //change screen to the level
+            game.setScreen(new Menu(game));
+            dispose();
+        }
     }
 
     @Override
@@ -69,7 +72,6 @@ public class PauseMenu implements Screen {
 
     @Override
     public void dispose() {
-        batch.dispose();
     }
 }
 
