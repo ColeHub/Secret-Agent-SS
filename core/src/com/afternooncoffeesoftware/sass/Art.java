@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import sun.jvm.hotspot.asm.sparc.SPARCRegister;
 
 /**
  * Created by cole on 2014-10-10.
@@ -24,6 +25,9 @@ public class Art {
     public static Texture lampImg;
     public static Sprite titleSprite;
     public static Sprite lampSprite;
+
+    public static Texture startImg, exitImg, optionsImg;
+    public static Sprite menuCurrentSprite;
 
     //spritesheet animating test crap
     static Animation walkAnimation;
@@ -50,6 +54,14 @@ public class Art {
         nekkidImg = new Texture("nekkid.png");
 
         titleImg = new Texture("title.png");
+        startImg = new Texture("start.png");
+        exitImg = new Texture("exit.png");
+        optionsImg = new Texture("options.png");
+        menuCurrentSprite = new Sprite(startImg);
+        menuCurrentSprite.scale(3);
+        menuCurrentSprite.setOrigin(0, 0);
+        menuCurrentSprite.setPosition(0, 0);
+
         titleSprite = new Sprite(titleImg);
         titleSprite.scale(3);
         titleSprite.setOrigin(0, 0);

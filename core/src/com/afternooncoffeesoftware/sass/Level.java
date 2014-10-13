@@ -40,14 +40,14 @@ public class Level implements Screen {
 
         Art.load();
         Sound.load();
+
+
         player = new Player((800 / 3) * 2, (480 / 4));
         guard = new NPC(800 / 3, 480 / 4, Art.nekkidImg);
 
         input = new Input(this);
 
         stateTime = 0f;
-
-
     }
 
     public void render(float delta) {
@@ -80,19 +80,20 @@ public class Level implements Screen {
 
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
             Sound.select.play(0.5f);
-
-            game.setScreen(new PauseMenu(game, this));
-            this.hide();
+            game.setScreen(new Menu(game));
         }
 
         if (input.walkRight) {
             if (currentFrame.isFlipX()) currentFrame.flip(true, false);
             player.sprite.setRegion(currentFrame);
+            Sound.walk.play();
             last = false;
+
         }
         if (input.walkLeft) {
             if (!currentFrame.isFlipX()) currentFrame.flip(true, false);
             player.sprite.setRegion(currentFrame);
+            Sound.walk.play();
             last = true;
         }
         if (!input.walkLeft && !input.walkRight) {

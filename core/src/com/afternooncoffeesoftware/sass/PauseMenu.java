@@ -32,24 +32,22 @@ public class PauseMenu implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 0.0f);
+        Gdx.gl.glClearColor(1, 1, 1, 0.5f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        Art.titleSprite.draw(batch);
+        batch.end();
 
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.X)) {
             Sound.select.play(0.5f);
 
             //change screen to the level
-            game.getScreen();
-            this.hide();
+            game.setScreen(new Menu(game));
+            dispose();
         }
-
-        batch.end();
     }
 
     @Override
@@ -74,7 +72,6 @@ public class PauseMenu implements Screen {
 
     @Override
     public void dispose() {
-        batch.dispose();
     }
 }
 
