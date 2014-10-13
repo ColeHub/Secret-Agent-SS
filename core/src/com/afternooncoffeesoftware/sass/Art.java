@@ -26,6 +26,9 @@ public class Art {
     public static Sprite titleSprite;
     public static Sprite lampSprite;
 
+    public static Texture splashImg;
+    public static Sprite splashSprite;
+
     public static Texture startImg, exitImg, optionsImg;
     public static Sprite menuCurrentSprite;
 
@@ -62,6 +65,12 @@ public class Art {
         menuCurrentSprite.setOrigin(0, 0);
         menuCurrentSprite.setPosition(0, 0);
 
+        splashImg = new Texture("splash.png");
+        splashSprite = new Sprite(splashImg);
+        splashSprite.scale(3);
+        splashSprite.setOrigin(0, 0);
+        splashSprite.setPosition(0, 0);
+
         titleSprite = new Sprite(titleImg);
         titleSprite.scale(3);
         titleSprite.setOrigin(0, 0);
@@ -75,11 +84,12 @@ public class Art {
         levelBgBox = new Rectangle();
         levelBgBox.x = 0;
         levelBgBox.y = 0;
-        levelBgBox.setWidth(1547);
-        levelBgBox.setHeight(480);
-        levelBgTexture = new Texture("bg.jpg");
+        levelBgBox.setWidth(1800);
+        levelBgBox.setHeight(600);
+        levelBgTexture = new Texture("level.png");
         levelBgSprite = new Sprite(levelBgTexture);
-        levelBgSprite.setOrigin(levelBgTexture.getWidth() / 2, levelBgTexture.getHeight() / 2);
+        levelBgSprite.scale(3);
+        levelBgSprite.setOrigin(levelBgTexture.getWidth() / 2, 0);
 
 
     }

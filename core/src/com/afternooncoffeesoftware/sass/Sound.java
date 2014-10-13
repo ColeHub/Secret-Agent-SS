@@ -10,11 +10,14 @@ import com.badlogic.gdx.audio.Music;
 public class Sound {
     public static com.badlogic.gdx.audio.Sound select;
     public static Music walk;
+    public static Music splashTune;
 
 
     public static void load() {
         select = Gdx.audio.newSound(Gdx.files.internal("Blip_Select.wav"));
         walk = Gdx.audio.newMusic(Gdx.files.internal("walk2.wav"));
+        splashTune = Gdx.audio.newMusic(Gdx.files.internal("splashtune.mp3"));
+        splashTune.setVolume(0.5f);
     }
 
     public void dispose() {

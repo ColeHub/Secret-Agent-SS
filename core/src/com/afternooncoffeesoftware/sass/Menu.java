@@ -6,6 +6,8 @@ import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.Timer;
 
 /**
  * Created by cole on 2014-10-10.
@@ -48,12 +50,22 @@ public class Menu implements Screen {
         }
 
         batch.begin();
+        int delay = 3000;
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                Art.splashSprite.draw(batch);
+            }
+        }, delay);
+        batch.end();
+
+        batch.begin();
         Art.titleSprite.draw(batch);
 
         if (state == 0) {
             Art.menuCurrentSprite.setTexture(Art.startImg);
             Art.menuCurrentSprite.draw(batch);
-            if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
                 Sound.select.play(0.5f);
                 //change screen to the level
                 game.setScreen(new Level(game));
