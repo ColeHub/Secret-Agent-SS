@@ -1,18 +1,19 @@
 package com.afternooncoffeesoftware.sass;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
- * Created by cole on 2014-10-10.
+ * Created by cole on 2014-10-12.
  */
-public class Player {
+public class NPC {
     public int x = 0;
     public int y = 0;
     public static Rectangle box;
     public static Sprite sprite;
 
-    public Player(int x, int y) {
+    public NPC(int x, int y, Texture texture) {
         this.x = x;
         this.y = y;
 
@@ -22,21 +23,21 @@ public class Player {
         box.setHeight(64);
         box.setWidth(64);
 
-        sprite = new Sprite(Art.playerRegIdle);
+        sprite = new Sprite(texture);
         sprite.scale(4);
         sprite.setPosition(box.x, box.y);
 
     }
 
-    public Player(Player box) {
+    public NPC(Player box) {
         this.x = box.x;
         this.y = box.y;
     }
 
     public String toString() {
         String result = "";
-        result += "Player X: " + box.x + " Y: " + box.y;
+        result += "Player x,y\n";
+        result += box.x + ", " + box.y;
         return result;
     }
-
 }
