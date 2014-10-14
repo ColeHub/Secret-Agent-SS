@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -14,6 +16,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class DialogScreen implements Screen {
     final SASS game;
     final Level level;
+    final NPC npc;
     Dialog dialog;
     public static int counter;
     public static int counted;
@@ -22,12 +25,16 @@ public class DialogScreen implements Screen {
     Rectangle selectBox;
     OrthographicCamera camera;
     Input input;
+    Texture personImg;
+    Sprite personSprite;
 
-    int pos1, pos2, pos3, posNPCText;
+    int pos1, pos2, pos3, posNPCText, setChoice;
     int margin;
 
-    public DialogScreen(final SASS sass, int set) {
+    public DialogScreen(final SASS sass, int set, final NPC npc) {
+        counted = -1;
         this.game = sass;
+        this.npc = npc;
         level = new Level(game);
         switch (set) {
             case 1:
@@ -42,6 +49,7 @@ public class DialogScreen implements Screen {
             default:
                 break;
         }
+        setChoice = set;
         //this.dialog = dialog;
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -49,6 +57,8 @@ public class DialogScreen implements Screen {
 
         Art.load();
         font = new BitmapFont();
+
+        npc.sprite.setPosition(200, 200);
 
         pos1 = 120;
         pos2 = 80;
@@ -63,7 +73,15 @@ public class DialogScreen implements Screen {
         input = new Input(level, this);
     }
 
+    public void setSet(int set) {
+        new DialogScreen(game, set, npc);
+        dispose();
+    }
+
     public void render(float delta) {
+        if (setChoice == 1) {
+            if (counted == 0) setSet(2);
+        }
 
         CharSequence strNPC = dialog.textNPC;
         CharSequence str1 = dialog.option1;

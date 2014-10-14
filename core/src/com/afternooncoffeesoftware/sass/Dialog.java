@@ -16,7 +16,7 @@ public class Dialog {
         option3 = new String("i swear on me mum");
     }
 
-    public void set2() {
+    public static void set2() {
         textNPC = "show me ur nips";
         option1 = "no im shy lol";
         option2 = "show me the money first";

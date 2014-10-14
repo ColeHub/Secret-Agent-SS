@@ -77,7 +77,7 @@ public class Level implements Screen {
         font.draw(batch, str2, 10, 440);
 
         if (player.box.x <= guard.box.x + 30 && player.box.x >= guard.box.x - 30) {
-            game.setScreen(new DialogScreen(game, 1));
+            game.setScreen(new DialogScreen(game, 1, guard));
         }
 
         guard.sprite.draw(batch);

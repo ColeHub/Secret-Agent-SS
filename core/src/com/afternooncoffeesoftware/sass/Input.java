@@ -79,7 +79,8 @@ public class Input {
         }
         if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
             //activate dialog option
-            dialog.counted = dialog.counter;
+
+            //dialog.counter = dialog.counted;
         }
     }
 }
