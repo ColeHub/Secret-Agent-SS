@@ -41,8 +41,7 @@ public class Level implements Screen {
         Sound.load();
 
         player = new Player((800 / 3) * 2, (480 / 4));
-        guard = new NPC(800 / 3, 480 / 4, Art.nekkidImg, guardDialog);
-        guardDialog.set1();
+        guard = new NPC(800 / 2, 480 / 3, Art.nekkidImg);
 
         input = new Input(this);
         font = new BitmapFont();
@@ -55,8 +54,7 @@ public class Level implements Screen {
 
 
         //debugging
-        //CharSequence str = player.toString();
-        CharSequence str = guardDialog.textNPC;
+        CharSequence str = player.toString();
 
         //set up a white canvas
         Gdx.gl.glClearColor(0.8f, 0.2f, 0.2f, 1);
@@ -73,6 +71,10 @@ public class Level implements Screen {
         Art.levelBgSprite.draw(batch);
         Art.levelBgSprite.setPosition(Art.levelBgBox.x, Art.levelBgBox.y);
         font.draw(batch, str, 10, 460);
+
+        if (player.x == guard.x && player.y == guard.y) {
+            game.setScreen(new DialogScreen(game, 1));
+        }
 
         guard.sprite.draw(batch);
         player.sprite.draw(batch);

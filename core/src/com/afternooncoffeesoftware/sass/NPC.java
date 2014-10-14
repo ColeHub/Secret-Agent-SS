@@ -14,7 +14,7 @@ public class NPC {
     public static Rectangle box;
     public static Sprite sprite;
 
-    public NPC(int x, int y, Texture texture, Dialog dialog) {
+    public NPC(int x, int y, Texture texture) {
 
         box = new Rectangle();
         box.x = x;
