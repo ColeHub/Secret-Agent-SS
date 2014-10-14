@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input.Keys;
  */
 public class Input {
     final Level level;
+    DialogScreen dialog;
     static Player player;
     public static boolean walkRight = false;
     public static boolean walkLeft = false;
@@ -16,7 +17,13 @@ public class Input {
         this.level = level;
     }
 
+    public Input(final Level level, final DialogScreen dialogScreen) {
+        this.level = level;
+        dialog = dialogScreen;
+    }
+
     public void menu() {
+
         if (Gdx.input.isKeyPressed(Keys.ESCAPE)) Gdx.app.exit();
     }
 
@@ -50,5 +57,28 @@ public class Input {
             walkRight = false;
         }
 
+    }
+
+    public void dialog() {
+        if (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.W)) {
+            //move dialog option up
+            if (dialog.counter >= 0)
+                dialog.counter--;
+            else {
+                dialog.counter = 0;
+            }
+        }
+        if (Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.S)) {
+            //move dialog option down
+            if (dialog.counter <= 2)
+                dialog.counter++;
+            else {
+                dialog.counter = 2;
+            }
+        }
+        if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+            //activate dialog option
+            dialog.counted = dialog.counter;
+        }
     }
 }

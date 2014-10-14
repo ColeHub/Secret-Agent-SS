@@ -4,6 +4,7 @@ import com.badlogic.gdx.*;
 
 public class SASS extends Game {
     Global global;
+    Dialog dialog;
     @Override
     public void create() {
         global = new Global(this);
@@ -12,7 +13,8 @@ public class SASS extends Game {
         Sound.load();
 
         //change screen to menu screen on startup
-        this.setScreen(new Splash(this));
+        //this.setScreen(new Splash(this));
+        this.setScreen(new DialogScreen(this, 1));
 
     }
 

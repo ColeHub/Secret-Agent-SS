@@ -10,10 +10,11 @@ import com.badlogic.gdx.math.Rectangle;
 public class NPC {
     public int x;
     public int y;
+    Dialog dialog;
     public static Rectangle box;
     public static Sprite sprite;
 
-    public NPC(int x, int y, Texture texture) {
+    public NPC(int x, int y, Texture texture, Dialog dialog) {
 
         box = new Rectangle();
         box.x = x;

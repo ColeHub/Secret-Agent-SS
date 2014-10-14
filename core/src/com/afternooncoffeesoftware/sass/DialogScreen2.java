@@ -5,14 +5,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * Created by cole on 2014-10-10.
+ * Created by cole on 2014-10-14.
  */
-public class Level implements Screen {
+public class DialogScreen2 implements Screen {
     final SASS game;
     BitmapFont font;
     Player player;
@@ -30,25 +29,14 @@ public class Level implements Screen {
 
     static float stateTime;
 
-    public Level(final SASS sass) {
+    public DialogScreen2(final SASS sass) {
 
         this.game = sass;
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
-        Art.load();
-        Sound.load();
-
-        player = new Player((800 / 3) * 2, (480 / 4));
-        guard = new NPC(800 / 3, 480 / 4, Art.nekkidImg, guardDialog);
         guardDialog.set1();
-
-        input = new Input(this);
-        font = new BitmapFont();
-
-
-        stateTime = 0f;
     }
 
     public void render(float delta) {
@@ -57,6 +45,7 @@ public class Level implements Screen {
         //debugging
         //CharSequence str = player.toString();
         CharSequence str = guardDialog.textNPC;
+        font = new BitmapFont();
 
         //set up a white canvas
         Gdx.gl.glClearColor(0.8f, 0.2f, 0.2f, 1);
