@@ -1,5 +1,6 @@
 package com.afternooncoffeesoftware.sass;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -58,7 +59,6 @@ public class DialogScreen implements Screen {
         Art.load();
         font = new BitmapFont();
 
-        npc.sprite.setPosition(200, 200);
 
         pos1 = 120;
         pos2 = 80;
@@ -98,6 +98,8 @@ public class DialogScreen implements Screen {
         batch.begin();
         Art.dialogSelectSprite.setPosition(selectBox.x, selectBox.y);
         Art.dialogSelectSprite.draw(batch);
+        npc.sprite.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        npc.sprite.draw(batch);
         font.draw(batch, strNPC, margin, posNPCText);
         font.draw(batch, str1, margin, pos1);
         font.draw(batch, str2, margin, pos2);

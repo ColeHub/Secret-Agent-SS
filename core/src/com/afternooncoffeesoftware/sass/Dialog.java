@@ -10,10 +10,10 @@ public class Dialog {
     public static String option3;
 
     public static void set1() {
-        textNPC = new String("Eyyyyyyyy fggt. lol");
-        option1 = new String("u wot m8");
-        option2 = new String("get rekt");
-        option3 = new String("i swear on me mum");
+        textNPC = "Eyyyyyyyy fggt. lol";
+        option1 = "u wot m8";
+        option2 = "get rekt";
+        option3 = "i swear on me mum";
     }
 
     public static void set2() {

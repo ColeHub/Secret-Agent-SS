@@ -63,7 +63,7 @@ public class Input {
     public void dialog() {
         if (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.W)) {
             //move dialog option up
-            if (dialog.counter >= 0)
+            if (dialog.counter > 0)
                 dialog.counter--;
             else {
                 dialog.counter = 0;
@@ -71,7 +71,7 @@ public class Input {
         }
         if (Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.S)) {
             //move dialog option down
-            if (dialog.counter <= 2)
+            if (dialog.counter < 2)
                 dialog.counter++;
             else {
                 dialog.counter = 2;
