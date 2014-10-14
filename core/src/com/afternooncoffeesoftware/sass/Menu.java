@@ -18,7 +18,6 @@ public class Menu implements Screen {
     OrthographicCamera camera;
     public static SpriteBatch batch;
 
-
     public static int state;
 
     public Menu(final SASS sass) {
@@ -65,7 +64,7 @@ public class Menu implements Screen {
         if (state == 0) {
             Art.menuCurrentSprite.setTexture(Art.startImg);
             Art.menuCurrentSprite.draw(batch);
-            if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isButtonPressed(Input.Keys.ANY_KEY)) {
                 Sound.select.play(0.5f);
                 //change screen to the level
                 game.setScreen(new Level(game));

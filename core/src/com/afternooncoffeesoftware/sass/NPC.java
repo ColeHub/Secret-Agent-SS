@@ -35,10 +35,10 @@ public class NPC {
         this.y = box.y;
     }
 
+    @Override
     public String toString() {
         String result = "";
-        result += "Player x,y\n";
-        result += box.x + ", " + box.y;
+        result += "Player X: " + box.x + " Y: " + box.y;
         return result;
     }
 }

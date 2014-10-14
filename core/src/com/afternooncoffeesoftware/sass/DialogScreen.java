@@ -85,6 +85,11 @@ public class DialogScreen implements Screen {
 
         input.dialog();
 
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
+            Sound.select.play(0.5f);
+            game.setScreen(new Level(game));
+        }
+
     }
 
     @Override
