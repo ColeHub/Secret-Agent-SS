@@ -58,7 +58,6 @@ public class DialogScreen implements Screen {
         selectBox = new Rectangle(0, 120, 800, 40);
 
         input = new Input(level, this);
-
     }
 
     public void render(float delta) {
