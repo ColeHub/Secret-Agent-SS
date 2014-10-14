@@ -22,13 +22,14 @@ public class Input {
 
     public void level() {
 
-        if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
             player.box.x -= 200 * Gdx.graphics.getDeltaTime();
             walkLeft = true;
             if (player.box.x <= 100) {
                 player.box.x = 100;
                 //move global offset
-                if (Gdx.input.isKeyPressed(Keys.LEFT)) level.globalOffset += 200 * Gdx.graphics.getDeltaTime();
+                if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A))
+                    level.globalOffset += 200 * Gdx.graphics.getDeltaTime();
             }
 
         } else {
@@ -36,13 +37,14 @@ public class Input {
         }
 
 
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) {
             player.box.x += 200 * Gdx.graphics.getDeltaTime();
             walkRight = true;
             if (player.box.x >= 700) {
                 player.box.x = 700;
                 //move global offset
-                if (Gdx.input.isKeyPressed(Keys.RIGHT)) level.globalOffset -= 200 * Gdx.graphics.getDeltaTime();
+                if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D))
+                    level.globalOffset -= 200 * Gdx.graphics.getDeltaTime();
             }
         } else {
             walkRight = false;

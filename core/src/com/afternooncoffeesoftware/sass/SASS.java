@@ -12,7 +12,7 @@ public class SASS extends Game {
         Sound.load();
 
         //change screen to menu screen on startup
-        this.setScreen(new Menu(this));
+        this.setScreen(new Splash(this));
 
     }
 
