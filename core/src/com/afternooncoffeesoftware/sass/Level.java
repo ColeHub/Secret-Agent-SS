@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Intersector;
 
 /**
  * Created by cole on 2014-10-10.
@@ -21,7 +22,7 @@ public class Level implements Screen {
     Dialog guardDialog;
     DialogScreen ds;
     SpriteBatch batch;
-    NPC guard;
+    NPC guard, guard2;
 
     public static TextureRegion currentFrame;
     boolean last = false;
@@ -41,15 +42,14 @@ public class Level implements Screen {
         Sound.load();
 
         player = new Player((800 / 3) * 2, (480 / 4));
+
+        guard2 = new NPC(300, 480 / 4, Art.nekkidImg);
         guard = new NPC(800 / 2, 480 / 4, Art.nekkidImg);
 
         input = new Input(this);
         font = new BitmapFont();
 
-
         stateTime = 0f;
-
-
     }
 
     public void render(float delta) {
@@ -76,13 +76,18 @@ public class Level implements Screen {
         font.draw(batch, str, 10, 460);
         font.draw(batch, str2, 10, 440);
 
-        if (player.box.x <= guard.box.x + 30 && player.box.x >= guard.box.x - 30) {
-            game.setScreen(new DialogScreen(game, 1, guard));
+        if (guard.active) {
+            if (Intersector.overlaps(player.box, guard.box)) game.setScreen(new DialogScreen(game, 1, guard));
+        }
+        if (guard2.active) {
+            if (Intersector.overlaps(player.box, guard2.box)) game.setScreen(new DialogScreen(game, 3, guard2));
         }
 
         guard.sprite.draw(batch);
+        guard2.sprite.draw(batch);
         player.sprite.draw(batch);
         guard.sprite.setPosition(globalOffset + guard.box.x, guard.box.y);
+        guard2.sprite.setPosition(globalOffset + guard2.box.x, guard2.box.y);
         player.sprite.setPosition(player.box.x, player.box.y);
 
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {

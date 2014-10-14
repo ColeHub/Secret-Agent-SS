@@ -13,9 +13,11 @@ public class NPC {
     Dialog dialog;
     public static Rectangle box;
     public static Sprite sprite;
+    public static boolean active;
 
     public NPC(int x, int y, Texture texture) {
 
+        active = true;
         box = new Rectangle();
         box.x = x;
         box.y = y;

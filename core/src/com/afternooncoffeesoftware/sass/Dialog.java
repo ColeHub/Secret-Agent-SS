@@ -10,17 +10,17 @@ public class Dialog {
     public static String option3;
 
     public static void set1() {
-        textNPC = "Eyyyyyyyy fggt. lol";
-        option1 = "u wot m8";
-        option2 = "get rekt";
-        option3 = "i swear on me mum";
+        textNPC = "You're going to be late for the meeting, get over there!";
+        option1 = "On my way!";
+        option2 = "I don't take orders from dirtbags like you.";
+        option3 = "...";
     }
 
     public static void set2() {
-        textNPC = "show me ur nips";
-        option1 = "no im shy lol";
-        option2 = "show me the money first";
-        option3 = "dad please stop";
+        textNPC = "Grab your hat over there before stepping into the room.";
+        option1 = "Okay.";
+        option2 = "Okay.";
+        option3 = "Okay.";
     }
 
     public void set3() {

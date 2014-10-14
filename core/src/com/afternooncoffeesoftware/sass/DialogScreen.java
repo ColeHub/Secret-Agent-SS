@@ -29,7 +29,7 @@ public class DialogScreen implements Screen {
     Texture personImg;
     Sprite personSprite;
 
-    int pos1, pos2, pos3, posNPCText, setChoice;
+    int pos1, pos2, pos3, posNPCText, currentSet;
     int margin;
 
     public DialogScreen(final SASS sass, int set, final NPC npc) {
@@ -50,7 +50,7 @@ public class DialogScreen implements Screen {
             default:
                 break;
         }
-        setChoice = set;
+        currentSet = set;
         //this.dialog = dialog;
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -74,13 +74,26 @@ public class DialogScreen implements Screen {
     }
 
     public void setSet(int set) {
-        new DialogScreen(game, set, npc);
+        game.setScreen(new DialogScreen(game, set, npc));
         dispose();
     }
 
     public void render(float delta) {
-        if (setChoice == 1) {
-            if (counted == 0) setSet(2);
+        if (currentSet == 1) {
+            if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) setSet(2);
+            if (counter == 1 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
+                dialog.textNPC = "Sorry?";
+            }
+            if (counter == 2 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
+                dialog.textNPC = "...?";
+            }
+        }
+        if (currentSet == 2) {
+            if (counter < 3 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
+                game.setScreen(new Level(game));
+                level.guard.active = false;
+            }
+
         }
 
         CharSequence strNPC = dialog.textNPC;
