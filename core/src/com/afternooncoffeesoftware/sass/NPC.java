@@ -28,6 +28,8 @@ public class NPC {
         sprite.setPosition(box.x, box.y);
 
 
+
+
     }
 
     public NPC(Player box) {

@@ -48,6 +48,8 @@ public class Level implements Screen {
 
 
         stateTime = 0f;
+
+
     }
 
     public void render(float delta) {

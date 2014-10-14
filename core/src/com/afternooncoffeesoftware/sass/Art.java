@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import sun.jvm.hotspot.asm.sparc.SPARCRegister;
+//import sun.jvm.hotspot.asm.sparc.SPARCRegister;
 
 /**
  * Created by cole on 2014-10-10.

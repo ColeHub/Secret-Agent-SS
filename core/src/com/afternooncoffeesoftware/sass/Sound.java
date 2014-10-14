@@ -11,6 +11,7 @@ public class Sound {
     public static com.badlogic.gdx.audio.Sound select;
     public static Music walk;
     public static Music splashTune;
+    public static Music menuMusic;
 
 
     public static void load() {
@@ -18,6 +19,7 @@ public class Sound {
         walk = Gdx.audio.newMusic(Gdx.files.internal("walk2.wav"));
         splashTune = Gdx.audio.newMusic(Gdx.files.internal("splashtune.mp3"));
         splashTune.setVolume(0.5f);
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("testmeoyeah.wav"));
     }
 
     public void dispose() {

@@ -57,6 +57,7 @@ public class Input {
             walkRight = false;
         }
 
+
     }
 
     public void dialog() {

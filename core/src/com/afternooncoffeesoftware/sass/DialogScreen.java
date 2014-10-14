@@ -36,6 +36,9 @@ public class DialogScreen implements Screen {
             case 2:
                 dialog.set2();
                 break;
+            case 3:
+                dialog.set3();
+                break;
             default:
                 break;
         }

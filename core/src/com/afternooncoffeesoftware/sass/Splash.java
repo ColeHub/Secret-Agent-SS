@@ -25,6 +25,7 @@ public class Splash implements Screen {
         batch = new SpriteBatch();
 
         Sound.splashTune.play();
+        Sound.menuMusic.play();
     }
 
     @Override
@@ -39,7 +40,7 @@ public class Splash implements Screen {
         batch.begin();
 
         Art.splashSprite.draw(batch);
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.isButtonPressed(Input.Keys.ANY_KEY)) {
             Sound.select.play(0.5f);
             game.setScreen(new Menu(game));
             dispose();
@@ -74,5 +75,6 @@ public class Splash implements Screen {
     public void dispose() {
         //batch.dispose();
         Sound.splashTune.dispose();
+        Sound.menuMusic.dispose();
     }
 }
