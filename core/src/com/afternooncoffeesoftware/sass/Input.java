@@ -80,7 +80,7 @@ public class Input {
         if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
             //activate dialog option
 
-            //dialog.counter = dialog.counted;
+            dialog.counted = dialog.counter;
         }
     }
 }
