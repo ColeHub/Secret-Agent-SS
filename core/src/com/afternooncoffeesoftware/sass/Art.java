@@ -26,6 +26,9 @@ public class Art {
     public static Sprite titleSprite;
     public static Sprite lampSprite;
 
+    public static Texture dialogSelectImg;
+    public static Sprite dialogSelectSprite;
+
     public static Texture splashImg;
     public static Sprite splashSprite;
 
@@ -70,6 +73,11 @@ public class Art {
         splashSprite.scale(3);
         splashSprite.setOrigin(0, 0);
         splashSprite.setPosition(0, 0);
+
+        dialogSelectImg = new Texture("dialogselect.png");
+        dialogSelectSprite = new Sprite(dialogSelectImg);
+        dialogSelectSprite.scale(3);
+        dialogSelectSprite.setOrigin(0, 10);
 
         titleSprite = new Sprite(titleImg);
         titleSprite.scale(3);

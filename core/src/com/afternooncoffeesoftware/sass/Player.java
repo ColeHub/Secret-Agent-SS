@@ -31,6 +31,7 @@ public class Player {
         this.y = box.y;
     }
 
+    @Override
     public String toString() {
         String result = "";
         result += "Player X: " + box.x + " Y: " + box.y;
