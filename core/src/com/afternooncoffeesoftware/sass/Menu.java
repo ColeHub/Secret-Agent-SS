@@ -47,6 +47,9 @@ public class Menu implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.A)) {
             if (state > 0) state--;
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+        }
 
         batch.begin();
         int delay = 3000;

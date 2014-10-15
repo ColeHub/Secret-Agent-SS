@@ -19,15 +19,15 @@ public class Dialog {
     public static void set2() {
         textNPC = "Grab your hat over there before stepping into the room.";
         option1 = "Okay.";
-        option2 = "Okay.";
-        option3 = "Okay.";
+        option2 = "Ja, good idea.";
+        option3 = "Sure. Whatever. Say, could you tell me where I am?";
     }
 
-    public void set3() {
-        textNPC = "Who the frikkidy frak are you m8?";
-        option1 = "I'm the King of Sweden YOLO.";
-        option2 = "Hans von Schnellfickehose.";
-        option3 = "Your mums boi toi.";
+    public static void set3() {
+        textNPC = "You better get in to that meeting, you're going to be late!";
+        option1 = "";
+        option2 = "";
+        option3 = "";
     }
 
 }

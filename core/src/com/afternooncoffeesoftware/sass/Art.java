@@ -79,6 +79,7 @@ public class Art {
         dialogSelectSprite.scale(3);
         dialogSelectSprite.setOrigin(0, 10);
 
+
         titleSprite = new Sprite(titleImg);
         titleSprite.scale(3);
         titleSprite.setOrigin(0, 0);

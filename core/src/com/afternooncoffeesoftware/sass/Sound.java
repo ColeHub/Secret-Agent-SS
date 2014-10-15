@@ -1,7 +1,7 @@
 package com.afternooncoffeesoftware.sass;
 
-import com.badlogic.gdx.Audio;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 
 /**
@@ -22,7 +22,19 @@ public class Sound {
         splashTune.setVolume(0.5f);
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("testmeoyeah.wav"));
         menuMusic.setLooping(true);
+
     }
+
+    public static void pauseMusic() {
+        if (menuMusic.isPlaying() && Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.M)) {
+            menuMusic.pause();
+        }
+        if (!(menuMusic.isPlaying()) && Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.M)) {
+            menuMusic.play();
+        }
+    }
+
+
 
     public void dispose() {
         walk.dispose();

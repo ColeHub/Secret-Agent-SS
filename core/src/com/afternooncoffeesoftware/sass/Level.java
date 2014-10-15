@@ -41,6 +41,8 @@ public class Level implements Screen {
         Art.load();
         Sound.load();
 
+
+
         player = new Player((800 / 3) * 2, (480 / 4));
 
         guard2 = new NPC(300, 480 / 4, Art.nekkidImg);
@@ -78,6 +80,11 @@ public class Level implements Screen {
 
         if (guard.active) {
             if (Intersector.overlaps(player.box, guard.box)) game.setScreen(new DialogScreen(game, 1, guard));
+        }
+        //restarts conversation with not active guard with SPACE BAR
+        else {
+            if (Intersector.overlaps(player.box, guard.box) && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE))
+                game.setScreen(new DialogScreen(game, 3, guard));
         }
         if (guard2.active) {
             if (Intersector.overlaps(player.box, guard2.box)) game.setScreen(new DialogScreen(game, 3, guard2));

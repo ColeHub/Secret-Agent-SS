@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
+
+
 /**
  * Created by cole on 2014-10-12.
  */
@@ -28,6 +30,7 @@ public class DialogScreen implements Screen {
     Input input;
     Texture personImg;
     Sprite personSprite;
+
 
     int pos1, pos2, pos3, posNPCText, currentSet;
     int margin;
@@ -78,6 +81,7 @@ public class DialogScreen implements Screen {
         dispose();
     }
 
+
     public void render(float delta) {
         if (currentSet == 1) {
             if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) setSet(2);
@@ -89,11 +93,25 @@ public class DialogScreen implements Screen {
             }
         }
         if (currentSet == 2) {
-            if (counter < 3 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
+            if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
                 game.setScreen(new Level(game));
                 level.guard.active = false;
             }
+            if (counter == 1 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
+                game.setScreen(new Level(game));
+                level.guard.active = false;
+            }
+            if (counter == 2 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) ) setSet(3);
+        }
 
+        if (currentSet == 3) {
+            Art.dialogSelectSprite.setColor(0,0,0,0.2f);
+            if (counter < 3 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) ||
+                    Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)) {
+
+                game.setScreen(new Level(game));
+                level.guard.active = false;
+            }
         }
 
         CharSequence strNPC = dialog.textNPC;
