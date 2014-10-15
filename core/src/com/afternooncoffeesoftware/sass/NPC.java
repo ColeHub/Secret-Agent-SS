@@ -10,28 +10,20 @@ import com.badlogic.gdx.math.Rectangle;
 public class NPC {
     public int x;
     public int y;
-    Dialog dialog;
     public static Rectangle box;
     public static Sprite sprite;
     public static boolean active;
 
-    public NPC(int x, int y, Texture texture) {
+    public NPC(Texture texture) {
 
         active = true;
         box = new Rectangle();
-        box.x = x;
-        box.y = y;
         box.setHeight(64);
         box.setWidth(64);
 
 
         sprite = new Sprite(texture);
         sprite.scale(4);
-        sprite.setPosition(box.x, box.y);
-
-
-
-
     }
 
     public NPC(Player box) {
@@ -42,7 +34,7 @@ public class NPC {
     @Override
     public String toString() {
         String result = "";
-        result += "Player X: " + box.x + " Y: " + box.y;
+        result += "NPC X: " + box.x + " Y: " + box.y;
         return result;
     }
 }

@@ -45,8 +45,7 @@ public class Level implements Screen {
 
         player = new Player((800 / 3) * 2, (480 / 4));
 
-        guard2 = new NPC(300, 480 / 4, Art.nekkidImg);
-        guard = new NPC(800 / 2, 480 / 4, Art.nekkidImg);
+        guard = new NPC(Art.nekkidImg);
 
         input = new Input(this);
         font = new BitmapFont();
@@ -91,10 +90,9 @@ public class Level implements Screen {
         }
 
         guard.sprite.draw(batch);
-        guard2.sprite.draw(batch);
         player.sprite.draw(batch);
-        guard.sprite.setPosition(globalOffset + guard.box.x, guard.box.y);
-        guard2.sprite.setPosition(globalOffset + guard2.box.x, guard2.box.y);
+        guard.box.setPosition(globalOffset + 400, 480 / 4);
+        guard.sprite.setPosition(guard.box.x, guard.box.y);
         player.sprite.setPosition(player.box.x, player.box.y);
 
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
