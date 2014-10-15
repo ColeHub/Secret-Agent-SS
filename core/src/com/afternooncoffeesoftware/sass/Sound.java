@@ -17,12 +17,17 @@ public class Sound {
     public static void load() {
         select = Gdx.audio.newSound(Gdx.files.internal("Blip_Select.wav"));
         walk = Gdx.audio.newMusic(Gdx.files.internal("walk2.wav"));
+        walk.setVolume(0.3f);
         splashTune = Gdx.audio.newMusic(Gdx.files.internal("splashtune.mp3"));
         splashTune.setVolume(0.5f);
         menuMusic = Gdx.audio.newMusic(Gdx.files.internal("testmeoyeah.wav"));
+        menuMusic.setLooping(true);
     }
 
     public void dispose() {
+        walk.dispose();
+        splashTune.dispose();
+        menuMusic.dispose();
         select.dispose();
     }
 }

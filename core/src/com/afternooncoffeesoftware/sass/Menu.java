@@ -28,7 +28,7 @@ public class Menu implements Screen {
         batch = new SpriteBatch();
 
         state = 0;
-
+        Sound.menuMusic.play();
 
     }
 
@@ -68,7 +68,6 @@ public class Menu implements Screen {
                 Sound.select.play(0.5f);
                 //change screen to the level
                 game.setScreen(new Level(game));
-                //cleanup
                 dispose();
             }
         } else if (state == 1) {
@@ -108,5 +107,6 @@ public class Menu implements Screen {
 
     @Override
     public void dispose() {
+        Sound.menuMusic.dispose();
     }
 }

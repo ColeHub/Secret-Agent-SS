@@ -25,7 +25,7 @@ public class Splash implements Screen {
         batch = new SpriteBatch();
 
         Sound.splashTune.play();
-        Sound.menuMusic.play();
+
     }
 
     @Override
@@ -75,6 +75,6 @@ public class Splash implements Screen {
     public void dispose() {
         //batch.dispose();
         Sound.splashTune.dispose();
-        Sound.menuMusic.dispose();
+
     }
 }

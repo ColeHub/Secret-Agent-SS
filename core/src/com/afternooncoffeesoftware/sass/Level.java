@@ -149,5 +149,6 @@ public class Level implements Screen {
     public void dispose() {
         font.dispose();
         Sound.select.dispose();
+        Sound.menuMusic.dispose();
     }
 }
