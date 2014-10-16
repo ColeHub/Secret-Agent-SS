@@ -2,6 +2,10 @@ package com.afternooncoffeesoftware.sass;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
+
+import static com.badlogic.gdx.InputProcessor.*;
 
 /**
  * Created by cole on 2014-10-10.
@@ -14,6 +18,15 @@ public class Input {
     public static boolean walkLeft = false;
     private int maxLeft = 300;
     private int maxRight = 500;
+
+    //sets the speed limit
+    private static final float MAX_MOVEMENT_SPEED = 200 * Gdx.graphics.getDeltaTime();
+    public static float oldVel = 0;
+
+    public static float transition_speed = 3f;
+    public static float newVel = 0f;
+    public static float endVel = 200 * Gdx.graphics.getDeltaTime();
+
 
     public Input(final Level level) {
         this.level = level;
@@ -30,30 +43,58 @@ public class Input {
     }
 
     public void level() {
+        if (!walkLeft && !walkRight) {
+            newVel = 0f;
+            oldVel = 0f;
+        }
+
 
         if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
-            player.box.x -= 200 * Gdx.graphics.getDeltaTime();
+            newVel = oldVel * (1 - Gdx.graphics.getDeltaTime() * transition_speed)
+                    + endVel * (Gdx.graphics.getDeltaTime() * transition_speed);
+            Gdx.app.log("New Velocity", String.valueOf(newVel));
+            Gdx.app.log("Old Velocity", String.valueOf(oldVel));
+
+            if (newVel < MAX_MOVEMENT_SPEED) {
+                player.box.x -= newVel;
+                oldVel = newVel;
+            }
+                else {
+                player.box.x -= MAX_MOVEMENT_SPEED;
+            }
+
             walkLeft = true;
             if (player.box.x <= maxLeft) {
                 player.box.x = maxLeft;
                 //move global offset
                 if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A))
-                    level.globalOffset += 200 * Gdx.graphics.getDeltaTime();
+                    level.globalOffset += newVel;
             }
 
         } else {
+
             walkLeft = false;
+
         }
 
 
         if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) {
-            player.box.x += 200 * Gdx.graphics.getDeltaTime();
+            newVel = oldVel * (1 - Gdx.graphics.getDeltaTime() * transition_speed)
+                    + endVel * (Gdx.graphics.getDeltaTime() * transition_speed);
+            if (newVel < MAX_MOVEMENT_SPEED) {
+                player.box.x += newVel;
+                oldVel = newVel;
+            }
+            else {
+                player.box.x += MAX_MOVEMENT_SPEED;
+            }
+
             walkRight = true;
             if (player.box.x >= maxRight) {
                 player.box.x = maxRight;
                 //move global offset
                 if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D))
-                    level.globalOffset -= 200 * Gdx.graphics.getDeltaTime();
+                    level.globalOffset -= newVel;
             }
         } else {
             walkRight = false;

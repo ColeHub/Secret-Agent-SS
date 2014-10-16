@@ -69,10 +69,11 @@ public class Menu implements Screen {
             Art.menuCurrentSprite.draw(batch);
             if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isButtonPressed(Input.Keys.ANY_KEY)) {
                 Sound.select.play(0.5f);
+                //change screen to the level
                 dispose();
                 game.setScreen(new Level(game));
-            }
 
+            }
         } else if (state == 1) {
             Art.menuCurrentSprite.setTexture(Art.optionsImg);
             Art.menuCurrentSprite.draw(batch);
@@ -110,7 +111,6 @@ public class Menu implements Screen {
 
     @Override
     public void dispose() {
-
         Sound.menuMusic.dispose();
     }
 }
