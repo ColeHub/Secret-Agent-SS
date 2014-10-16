@@ -12,6 +12,8 @@ public class Input {
     static Player player;
     public static boolean walkRight = false;
     public static boolean walkLeft = false;
+    private int maxLeft = 300;
+    private int maxRight = 500;
 
     public Input(final Level level) {
         this.level = level;
@@ -32,8 +34,8 @@ public class Input {
         if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
             player.box.x -= 200 * Gdx.graphics.getDeltaTime();
             walkLeft = true;
-            if (player.box.x <= 100) {
-                player.box.x = 100;
+            if (player.box.x <= maxLeft) {
+                player.box.x = maxLeft;
                 //move global offset
                 if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A))
                     level.globalOffset += 200 * Gdx.graphics.getDeltaTime();
@@ -47,8 +49,8 @@ public class Input {
         if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) {
             player.box.x += 200 * Gdx.graphics.getDeltaTime();
             walkRight = true;
-            if (player.box.x >= 700) {
-                player.box.x = 700;
+            if (player.box.x >= maxRight) {
+                player.box.x = maxRight;
                 //move global offset
                 if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D))
                     level.globalOffset -= 200 * Gdx.graphics.getDeltaTime();
