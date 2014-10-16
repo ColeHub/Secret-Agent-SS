@@ -21,8 +21,8 @@ public class DialogScreen implements Screen {
     final Level level;
     final NPC npc;
     Dialog dialog;
-    public static int counter;
-    public static int counted;
+    public int counter;
+    public int counted;
     SpriteBatch batch;
     BitmapFont font;
     Rectangle selectBox;
@@ -39,7 +39,7 @@ public class DialogScreen implements Screen {
         counted = -1;
         this.game = sass;
         this.npc = npc;
-        level = new Level(game);
+        this.level = new Level(game);
         switch (set) {
             case 1:
                 dialog.set1();
@@ -94,11 +94,11 @@ public class DialogScreen implements Screen {
         }
         if (currentSet == 2) {
             if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
-                game.setScreen(new Level(game));
+                game.setScreen(level);
                 level.guard.active = false;
             }
             if (counter == 1 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
-                game.setScreen(new Level(game));
+                game.setScreen(level);
                 level.guard.active = false;
             }
             if (counter == 2 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) ) setSet(3);
@@ -109,8 +109,8 @@ public class DialogScreen implements Screen {
             if (counter < 3 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) ||
                     Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)) {
 
-                game.setScreen(new Level(game));
-                level.guard.active = false;
+                game.setScreen(level);
+                level.guard2.active = false;
             }
         }
 

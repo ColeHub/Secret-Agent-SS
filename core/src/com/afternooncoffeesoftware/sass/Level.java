@@ -33,7 +33,6 @@ public class Level implements Screen {
     static float stateTime;
 
     public Level(final SASS sass) {
-
         this.game = sass;
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -80,7 +79,9 @@ public class Level implements Screen {
         font.draw(batch, str3, 10, 480);
 
         if (guard.active) {
-            if (Intersector.overlaps(player.box, guard.box)) game.setScreen(new DialogScreen(game, 1, guard));
+            if (Intersector.overlaps(player.box, guard.box)) {
+                game.setScreen(new DialogScreen(game, 1, guard));
+            }
         }
         //restarts conversation with not active guard with SPACE BAR
         else {
@@ -97,7 +98,7 @@ public class Level implements Screen {
         guard.box.setPosition(globalOffset + 400, 480 / 4);
         guard2.box.setPosition(globalOffset + 600, 480 / 4);
         guard.sprite.setPosition(guard.box.x, guard.box.y);
-        guard2.sprite.setPosition(guard2.box.x+200, guard2.box.y);
+        guard2.sprite.setPosition(guard2.box.x, guard2.box.y);
         player.sprite.setPosition(player.box.x, player.box.y);
 
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {

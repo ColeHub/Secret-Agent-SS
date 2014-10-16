@@ -12,7 +12,7 @@ public class NPC {
     public int y;
     public Rectangle box;
     public Sprite sprite;
-    public static boolean active;
+    public boolean active;
 
     public NPC(Texture texture) {
 

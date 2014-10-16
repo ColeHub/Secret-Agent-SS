@@ -14,8 +14,8 @@ public class Input {
     final Level level;
     DialogScreen dialog;
     Player player;
-    public static boolean walkRight = false;
-    public static boolean walkLeft = false;
+    public boolean walkRight = false;
+    public boolean walkLeft = false;
     private int maxLeft = 300;
     private int maxRight = 500;
 
