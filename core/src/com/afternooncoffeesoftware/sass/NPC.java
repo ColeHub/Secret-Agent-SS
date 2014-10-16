@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
 public class NPC {
     public int x;
     public int y;
-    public static Rectangle box;
-    public static Sprite sprite;
+    public Rectangle box;
+    public Sprite sprite;
     public static boolean active;
 
     public NPC(Texture texture) {

@@ -22,7 +22,8 @@ public class Level implements Screen {
     Dialog guardDialog;
     DialogScreen ds;
     SpriteBatch batch;
-    NPC guard, guard2;
+    NPC guard;
+    NPC guard2;
 
     public static TextureRegion currentFrame;
     boolean last = false;
@@ -46,6 +47,7 @@ public class Level implements Screen {
         player = new Player((800 / 3) * 2, (480 / 4));
 
         guard = new NPC(Art.nekkidImg);
+        guard2 = new NPC(Art.nekkidImg);
 
         input = new Input(this);
         font = new BitmapFont();
@@ -59,6 +61,7 @@ public class Level implements Screen {
         //debugging
         CharSequence str = player.toString();
         CharSequence str2 = guard.toString();
+        CharSequence str3 = guard2.toString();
 
         //set up a white canvas
         Gdx.gl.glClearColor(0.8f, 0.2f, 0.2f, 1);
@@ -76,6 +79,7 @@ public class Level implements Screen {
         Art.levelBgSprite.setPosition(Art.levelBgBox.x, Art.levelBgBox.y);
         font.draw(batch, str, 10, 460);
         font.draw(batch, str2, 10, 440);
+        font.draw(batch, str3, 10, 480);
 
         if (guard.active) {
             if (Intersector.overlaps(player.box, guard.box)) game.setScreen(new DialogScreen(game, 1, guard));
@@ -90,9 +94,12 @@ public class Level implements Screen {
         }
 
         guard.sprite.draw(batch);
+        guard2.sprite.draw(batch);
         player.sprite.draw(batch);
         guard.box.setPosition(globalOffset + 400, 480 / 4);
+        guard2.box.setPosition(globalOffset + 600, 480 / 4);
         guard.sprite.setPosition(guard.box.x, guard.box.y);
+        guard2.sprite.setPosition(guard2.box.x+200, guard2.box.y);
         player.sprite.setPosition(player.box.x, player.box.y);
 
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
