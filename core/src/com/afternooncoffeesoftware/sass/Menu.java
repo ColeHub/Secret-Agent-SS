@@ -42,10 +42,16 @@ public class Menu implements Screen {
         batch.setProjectionMatrix(camera.combined);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) || Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-            if (state < 2) state++;
+            Sound.select.play(0.5f);
+            if (state < 2) {
+                state++;
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.A)) {
-            if (state > 0) state--;
+            Sound.select.play(0.5f);
+            if (state > 0) {
+                state--;
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
@@ -80,7 +86,6 @@ public class Menu implements Screen {
         } else if (state == 2) {
             Art.menuCurrentSprite.setTexture(Art.exitImg);
             Art.menuCurrentSprite.draw(batch);
-            Sound.select.pause();
             if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 Gdx.app.exit();
             }

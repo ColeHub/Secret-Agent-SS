@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 public class Player {
     public int x = 0;
     public int y = 0;
-    public static Rectangle box;
-    public static Sprite sprite;
+    public Rectangle box;
+    public Sprite sprite;
 
     public Player(int x, int y) {
 

@@ -42,8 +42,6 @@ public class Level implements Screen {
         Art.load();
         Sound.load();
 
-
-
         player = new Player((800 / 3) * 2, (480 / 4));
 
         guard = new NPC(Art.nekkidImg);
@@ -132,7 +130,7 @@ public class Level implements Screen {
         }
 
         batch.end();
-        input.level();
+        input.level(player);
     }
 
     @Override

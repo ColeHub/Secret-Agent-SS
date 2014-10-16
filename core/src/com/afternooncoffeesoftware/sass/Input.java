@@ -13,7 +13,7 @@ import static com.badlogic.gdx.InputProcessor.*;
 public class Input {
     final Level level;
     DialogScreen dialog;
-    static Player player;
+    Player player;
     public static boolean walkRight = false;
     public static boolean walkLeft = false;
     private int maxLeft = 300;
@@ -38,11 +38,11 @@ public class Input {
     }
 
     public void menu() {
-
         if (Gdx.input.isKeyPressed(Keys.ESCAPE)) Gdx.app.exit();
+
     }
 
-    public void level() {
+    public void level(Player player) {
         if (!walkLeft && !walkRight) {
             newVel = 0f;
             oldVel = 0f;
