@@ -29,6 +29,9 @@ public class Art {
     public static Texture dialogSelectImg;
     public static Sprite dialogSelectSprite;
 
+    public static Texture objectImg;
+    public static Sprite objectSprite;
+
     public static Texture splashImg;
     public static Sprite splashSprite;
 
@@ -79,6 +82,10 @@ public class Art {
         dialogSelectSprite.scale(3);
         dialogSelectSprite.setOrigin(0, 10);
 
+        objectImg = new Texture("obj.png");
+        objectSprite = new Sprite(objectImg);
+        objectSprite.scale(4);
+        objectSprite.setOrigin(0, 0);
 
         titleSprite = new Sprite(titleImg);
         titleSprite.scale(3);
@@ -99,7 +106,5 @@ public class Art {
         levelBgSprite = new Sprite(levelBgTexture);
         levelBgSprite.scale(3);
         levelBgSprite.setOrigin(levelBgTexture.getWidth() / 2, 0);
-
-
     }
 }
