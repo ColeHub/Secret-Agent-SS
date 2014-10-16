@@ -96,7 +96,7 @@ public class Level implements Screen {
         guard2.sprite.draw(batch);
         player.sprite.draw(batch);
         guard.box.setPosition(globalOffset + 400, 480 / 4);
-        guard2.box.setPosition(globalOffset + 600, 480 / 4);
+        guard2.box.setPosition(globalOffset + 700, 480 / 4);
         guard.sprite.setPosition(guard.box.x, guard.box.y);
         guard2.sprite.setPosition(guard2.box.x, guard2.box.y);
         player.sprite.setPosition(player.box.x, player.box.y);
