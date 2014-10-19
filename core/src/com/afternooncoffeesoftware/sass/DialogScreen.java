@@ -110,6 +110,7 @@ public class DialogScreen implements Screen {
                     Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)) {
 
                 game.setScreen(level);
+                level.guard.active = false;
                 level.guard2.active = false;
             }
         }

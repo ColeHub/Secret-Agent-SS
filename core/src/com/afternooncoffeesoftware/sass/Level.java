@@ -40,8 +40,8 @@ public class Level implements Screen {
 
         Art.load();
         Sound.load();
-
-        player = new Player((800 / 3) * 2, (480 / 4));
+// x was 800/3*2 = 533.333
+        player = new Player(500, (480 / 4));
 
         guard = new NPC(Art.nekkidImg);
         guard2 = new NPC(Art.nekkidImg);
