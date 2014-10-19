@@ -1,7 +1,6 @@
 package com.afternooncoffeesoftware.sass;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -9,12 +8,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
+import sun.security.jgss.krb5.ServiceCreds;
 
 /**
  * Created by cole on 2014-10-10.
  */
-public class Level implements Screen {
-    final SASS game;
+public class Level implements com.badlogic.gdx.Screen {
     BitmapFont font;
     Player player;
     OrthographicCamera camera;
@@ -30,10 +29,11 @@ public class Level implements Screen {
 
     public int globalOffset = 0;
 
+    //test revert successfull
+
     static float stateTime;
 
-    public Level(final SASS sass) {
-        this.game = sass;
+    public Level() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -80,16 +80,21 @@ public class Level implements Screen {
 
         if (guard.active) {
             if (Intersector.overlaps(player.box, guard.box)) {
-                game.setScreen(new DialogScreen(game, 1, guard));
+                //game.setScreen(new DialogScreen(game, 1, guard));
+                ScreenManager.getInstance().showDialog(1, guard);
             }
         }
         //restarts conversation with not active guard with SPACE BAR
         else {
             if (Intersector.overlaps(player.box, guard.box) && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE))
-                game.setScreen(new DialogScreen(game, 3, guard));
+                //game.setScreen(new DialogScreen(game, 3, guard));
+                ScreenManager.getInstance().showDialog(3, guard);
         }
         if (guard2.active) {
-            if (Intersector.overlaps(player.box, guard2.box)) game.setScreen(new DialogScreen(game, 3, guard2));
+            if (Intersector.overlaps(player.box, guard2.box)) {
+                //game.setScreen(new DialogScreen(game, 3, guard2));
+                ScreenManager.getInstance().showDialog(3, guard2);
+            }
         }
 
         guard.sprite.draw(batch);
@@ -103,7 +108,8 @@ public class Level implements Screen {
 
         if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
             Sound.select.play(0.5f);
-            game.setScreen(new Menu(game));
+            //game.setScreen(new Menu(game));
+            ScreenManager.getInstance().show(Screen.PAUSEMENU);
         }
 
         if (input.walkRight) {

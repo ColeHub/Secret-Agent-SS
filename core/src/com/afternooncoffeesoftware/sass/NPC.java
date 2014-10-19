@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Rectangle;
  * Created by cole on 2014-10-12.
  */
 public class NPC {
-    public int x;
-    public int y;
+    public float x;
+    public float y;
     public Rectangle box;
     public Sprite sprite;
     public boolean active;
@@ -21,14 +21,11 @@ public class NPC {
         box.setHeight(64);
         box.setWidth(64);
 
+        x = box.x;
+        y = box.y;
 
         sprite = new Sprite(texture);
         sprite.scale(4);
-    }
-
-    public NPC(Player box) {
-        this.x = box.x;
-        this.y = box.y;
     }
 
     @Override

@@ -26,6 +26,11 @@ public class Art {
     public static Sprite titleSprite;
     public static Sprite lampSprite;
 
+    public static Texture pausedImg;
+    public static Sprite pausedSprite;
+    public static Texture resumeImg;
+    public static Sprite resumeSprite;
+
     public static Texture dialogSelectImg;
     public static Sprite dialogSelectSprite;
 
@@ -63,6 +68,10 @@ public class Art {
         nekkidImg = new Texture("nekkid.png");
 
         titleImg = new Texture("title.png");
+        titleSprite = new Sprite(titleImg);
+        titleSprite.scale(3);
+        titleSprite.setOrigin(0, 0);
+        titleSprite.setPosition(0, 0);
         startImg = new Texture("start.png");
         exitImg = new Texture("exit.png");
         optionsImg = new Texture("options.png");
@@ -70,6 +79,13 @@ public class Art {
         menuCurrentSprite.scale(3);
         menuCurrentSprite.setOrigin(0, 0);
         menuCurrentSprite.setPosition(0, 0);
+
+        pausedImg = new Texture("pause.png");
+        pausedSprite = new Sprite(pausedImg);
+        pausedSprite.scale(3);
+        pausedSprite.setOrigin(0, 0);
+        pausedSprite.setPosition(0, 0);
+        resumeImg = new Texture("resume.png");
 
         splashImg = new Texture("splash.png");
         splashSprite = new Sprite(splashImg);
@@ -87,10 +103,6 @@ public class Art {
         objectSprite.scale(4);
         objectSprite.setOrigin(0, 0);
 
-        titleSprite = new Sprite(titleImg);
-        titleSprite.scale(3);
-        titleSprite.setOrigin(0, 0);
-        titleSprite.setPosition(0, 0);
 
         lampImg = new Texture("lamp.png");
         lampSprite = new Sprite(lampImg);

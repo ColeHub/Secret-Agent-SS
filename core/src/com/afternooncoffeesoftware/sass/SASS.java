@@ -8,12 +8,14 @@ public class SASS extends Game {
     @Override
     public void create() {
         global = new Global(this);
+        ScreenManager.getInstance().initialize(this);
         //load files
         Art.load();
         Sound.load();
 
         //change screen to menu screen on startup
-        this.setScreen(new Splash(this));
+        //this.setScreen(new Splash(this));
+        ScreenManager.getInstance().show(Screen.SPLASH);
         //this.setScreen(new Level(this));
 
     }

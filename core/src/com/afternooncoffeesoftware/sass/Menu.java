@@ -12,16 +12,14 @@ import com.badlogic.gdx.utils.Timer;
 /**
  * Created by cole on 2014-10-10.
  */
-public class Menu implements Screen {
-    final SASS game;
+public class Menu implements com.badlogic.gdx.Screen {
 
     OrthographicCamera camera;
     public static SpriteBatch batch;
 
     public static int state;
 
-    public Menu(final SASS sass) {
-        game = sass;
+    public Menu() {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -77,7 +75,7 @@ public class Menu implements Screen {
                 Sound.select.play(0.5f);
                 //change screen to the level
                 dispose();
-                game.setScreen(new Level(game));
+                ScreenManager.getInstance().show(Screen.LEVEL);
 
             }
         } else if (state == 1) {
