@@ -11,14 +11,12 @@ import com.badlogic.gdx.utils.Timer;
 /**
  * Created by cole on 2014-10-13.
  */
-public class Splash implements Screen {
-    final SASS game;
+public class Splash implements com.badlogic.gdx.Screen {
 
     OrthographicCamera camera;
     public static SpriteBatch batch;
 
-    public Splash(final SASS sass) {
-        game = sass;
+    public Splash() {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -42,7 +40,7 @@ public class Splash implements Screen {
         Art.splashSprite.draw(batch);
         if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.isButtonPressed(Input.Keys.ANY_KEY)) {
             Sound.select.play(0.5f);
-            game.setScreen(new Menu(game));
+            ScreenManager.getInstance().show(Screen.MENU);
             dispose();
         }
 

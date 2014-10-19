@@ -16,10 +16,9 @@ import com.badlogic.gdx.math.Rectangle;
 /**
  * Created by cole on 2014-10-12.
  */
-public class DialogScreen implements Screen {
-    final SASS game;
-    final Level level;
-    final NPC npc;
+public class DialogScreen implements com.badlogic.gdx.Screen {
+    Level level;
+    NPC npc;
     Dialog dialog;
     public int counter;
     public int counted;
@@ -28,18 +27,14 @@ public class DialogScreen implements Screen {
     Rectangle selectBox;
     OrthographicCamera camera;
     Input input;
-    Texture personImg;
-    Sprite personSprite;
 
 
     int pos1, pos2, pos3, posNPCText, currentSet;
     int margin;
 
-    public DialogScreen(final SASS sass, int set, final NPC npc) {
-        counted = -1;
-        this.game = sass;
+    public DialogScreen(int set, NPC npc) {
         this.npc = npc;
-        this.level = new Level(game);
+        level = ScreenManager.getInstance().getLevel(com.afternooncoffeesoftware.sass.Screen.LEVEL);
         switch (set) {
             case 1:
                 dialog.set1();
@@ -77,8 +72,7 @@ public class DialogScreen implements Screen {
     }
 
     public void setSet(int set) {
-        game.setScreen(new DialogScreen(game, set, npc));
-        dispose();
+        ScreenManager.getInstance().showDialog(set, npc);
     }
 
 
@@ -94,11 +88,11 @@ public class DialogScreen implements Screen {
         }
         if (currentSet == 2) {
             if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
-                game.setScreen(level);
+                ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
                 level.guard.active = false;
             }
             if (counter == 1 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
-                game.setScreen(level);
+                ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
                 level.guard.active = false;
             }
             if (counter == 2 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) ) setSet(3);
@@ -109,7 +103,7 @@ public class DialogScreen implements Screen {
             if (counter < 3 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) ||
                     Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)) {
 
-                game.setScreen(level);
+                ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
                 level.guard.active = false;
                 level.guard2.active = false;
             }
@@ -142,7 +136,7 @@ public class DialogScreen implements Screen {
 
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
             Sound.select.play(0.5f);
-            game.setScreen(new Level(game));
+            ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
         }
 
     }
