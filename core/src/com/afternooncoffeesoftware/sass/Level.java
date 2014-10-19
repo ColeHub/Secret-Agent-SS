@@ -68,7 +68,7 @@ public class Level implements com.badlogic.gdx.Screen {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = Art.walkAnimation.getKeyFrame(stateTime, true);
 
-        Art.levelBgBox.x = globalOffset - 200;
+        Art.levelBgBox.x = globalOffset + 200;
 
         //render scene
         batch.begin();
