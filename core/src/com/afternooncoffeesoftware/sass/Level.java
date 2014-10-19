@@ -32,6 +32,8 @@ public class Level implements Screen {
 
     static float stateTime;
 
+    //test comment
+
     public Level(final SASS sass) {
         this.game = sass;
         batch = new SpriteBatch();
