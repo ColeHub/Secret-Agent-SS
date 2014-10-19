@@ -1,15 +1,9 @@
 package com.afternooncoffeesoftware.sass;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
-
-import java.awt.*;
-
 /**
  * Created by cole on 2014-10-18.
  */
 public enum Screen {
-
 
     SPLASH {
         @Override
@@ -65,6 +59,5 @@ public enum Screen {
     }
 
     protected abstract com.badlogic.gdx.Screen getScreenInstance();
-
 
 }
