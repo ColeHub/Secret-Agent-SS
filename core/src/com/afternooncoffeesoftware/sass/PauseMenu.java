@@ -28,7 +28,7 @@ public class PauseMenu implements com.badlogic.gdx.Screen {
         batch = new SpriteBatch();
 
         state = 0;
-        Sound.menuMusic.play();
+        //Sound.menuMusic.play();
 
     }
 

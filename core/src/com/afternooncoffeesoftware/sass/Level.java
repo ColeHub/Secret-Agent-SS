@@ -4,25 +4,28 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Intersector;
-import sun.security.jgss.krb5.ServiceCreds;
 
 /**
  * Created by cole on 2014-10-10.
  */
 public class Level implements com.badlogic.gdx.Screen {
-    BitmapFont font;
+    BitmapFont debugFont;
     Player player;
     OrthographicCamera camera;
     Input input;
-    Dialog guardDialog;
-    DialogScreen ds;
     SpriteBatch batch;
     NPC guard;
     NPC guard2;
+
+    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Minecraftia-Regular.ttf"));
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    //in-game font
+
+    BitmapFont font = new BitmapFont();
 
     public static TextureRegion currentFrame;
     boolean last = false;
@@ -40,63 +43,50 @@ public class Level implements com.badlogic.gdx.Screen {
 
         Art.load();
         Sound.load();
-// x was 800/3*2 = 533.333
+        debugFont = new BitmapFont();
+        debugFont.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+
+        // x was 800/3*2 = 533.333
         player = new Player(500, (480 / 4));
 
         guard = new NPC(Art.nekkidImg);
         guard2 = new NPC(Art.nekkidImg);
 
         input = new Input(this);
-        font = new BitmapFont();
-
         stateTime = 0f;
+
+        parameter.size = 32;
+        font = generator.generateFont(parameter);
     }
 
     public void render(float delta) {
+        input.level(player);
 
 
-        //debugging
+
+        //debugging string
         CharSequence str = player.toString();
-        CharSequence str2 = guard.toString();
-        CharSequence str3 = guard2.toString();
 
         //set up a white canvas
         Gdx.gl.glClearColor(0.8f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Art.batch.setProjectionMatrix(camera.combined);
-
-        stateTime += Gdx.graphics.getDeltaTime();
-        currentFrame = Art.walkAnimation.getKeyFrame(stateTime, true);
-
         Art.levelBgBox.x = globalOffset + 200;
 
         //render scene
         batch.begin();
         Art.levelBgSprite.draw(batch);
-        Art.levelBgSprite.setPosition(Art.levelBgBox.x, Art.levelBgBox.y);
-        font.draw(batch, str, 10, 460);
-        font.draw(batch, str2, 10, 440);
-        font.draw(batch, str3, 10, 480);
+        if(globalOffset > -800)
+            Art.levelBgSprite.setPosition(Art.levelBgBox.x, Art.levelBgBox.y);
+        if(globalOffset < -800)
+            Art.levelBgSprite.setPosition(Art.levelBgBox.x+1600, Art.levelBgBox.y);
+        //debugging
+        debugFont.draw(batch, str, 10, 400);
 
-        if (guard.active) {
-            if (Intersector.overlaps(player.box, guard.box)) {
-                //game.setScreen(new DialogScreen(game, 1, guard));
-                ScreenManager.getInstance().showDialog(1, guard);
-            }
-        }
-        //restarts conversation with not active guard with SPACE BAR
-        else {
-            if (Intersector.overlaps(player.box, guard.box) && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE))
-                //game.setScreen(new DialogScreen(game, 3, guard));
-                ScreenManager.getInstance().showDialog(3, guard);
-        }
-        if (guard2.active) {
-            if (Intersector.overlaps(player.box, guard2.box)) {
-                //game.setScreen(new DialogScreen(game, 3, guard2));
-                ScreenManager.getInstance().showDialog(3, guard2);
-            }
-        }
+        font.draw(batch, "GET TO THE MEETING", 200, 440);
+        font.draw(batch, "globalOffset: " + globalOffset, 200, 400);
 
+        //initialize objects and positions
         guard.sprite.draw(batch);
         guard2.sprite.draw(batch);
         player.sprite.draw(batch);
@@ -106,18 +96,23 @@ public class Level implements com.badlogic.gdx.Screen {
         guard2.sprite.setPosition(guard2.box.x, guard2.box.y);
         player.sprite.setPosition(player.box.x, player.box.y);
 
-        if (Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
-            Sound.select.play(0.5f);
-            //game.setScreen(new Menu(game));
-            ScreenManager.getInstance().show(Screen.PAUSEMENU);
-        }
+        playerAnimate();
+        npcEvents();
+
+        batch.end();
+    }
+
+    public void playerAnimate(){
+        //animation variables
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentFrame = Art.walkAnimation.getKeyFrame(stateTime, true);
 
         if (input.walkRight) {
             if (currentFrame.isFlipX()) currentFrame.flip(true, false);
+
             player.sprite.setRegion(currentFrame);
             Sound.walk.play();
             last = false;
-
         }
         if (input.walkLeft) {
             if (!currentFrame.isFlipX()) currentFrame.flip(true, false);
@@ -135,9 +130,27 @@ public class Level implements com.badlogic.gdx.Screen {
                 player.sprite.setRegion(Art.playerRegIdle);
             }
         }
+    }
 
-        batch.end();
-        input.level(player);
+    public void npcEvents(){
+        if (guard.talkative) {
+            if (Intersector.overlaps(player.box, guard.box)) {
+                //game.setScreen(new DialogScreen(game, 1, guard));
+                ScreenManager.getInstance().showDialog(1, guard);
+            }
+        }
+        //restarts conversation with not active guard with SPACE BAR
+        else {
+            if (Intersector.overlaps(player.box, guard.box) && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE))
+                //game.setScreen(new DialogScreen(game, 3, guard));
+                ScreenManager.getInstance().showDialog(3, guard);
+        }
+        if (guard2.talkative) {
+            if (Intersector.overlaps(player.box, guard2.box)) {
+                //game.setScreen(new DialogScreen(game, 3, guard2));
+                ScreenManager.getInstance().showDialog(3, guard2);
+            }
+        }
     }
 
     @Override
@@ -146,8 +159,6 @@ public class Level implements com.badlogic.gdx.Screen {
 
     @Override
     public void show() {
-        // start the playback of the background music
-        // when the screen is shown
     }
 
     @Override
@@ -164,8 +175,9 @@ public class Level implements com.badlogic.gdx.Screen {
 
     @Override
     public void dispose() {
-        font.dispose();
+        debugFont.dispose();
         Sound.select.dispose();
         Sound.menuMusic.dispose();
+        generator.dispose(); // don't forget to dispose to avoid memory leaks!
     }
 }

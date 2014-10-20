@@ -100,6 +100,7 @@ public class Input {
             walkRight = false;
         }
 
+        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) ScreenManager.getInstance().show(Screen.PAUSEMENU);
 
     }
 

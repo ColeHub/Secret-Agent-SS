@@ -12,11 +12,11 @@ public class NPC {
     public float y;
     public Rectangle box;
     public Sprite sprite;
-    public boolean active;
+    public boolean talkative;
 
     public NPC(Texture texture) {
 
-        active = true;
+        talkative = true;
         box = new Rectangle();
         box.setHeight(64);
         box.setWidth(64);

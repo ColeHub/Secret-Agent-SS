@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
 
 
@@ -23,11 +24,13 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
     public int counter;
     public int counted;
     SpriteBatch batch;
-    BitmapFont font;
     Rectangle selectBox;
     OrthographicCamera camera;
     Input input;
 
+    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Minecraftia-Regular.ttf"));
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    BitmapFont font;
 
     int pos1, pos2, pos3, posNPCText, currentSet;
     int margin;
@@ -57,10 +60,9 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
         Art.load();
         font = new BitmapFont();
 
-
-        pos1 = 120;
-        pos2 = 80;
-        pos3 = 40;
+        pos1 = 100;
+        pos2 = 60;
+        pos3 = 20;
         posNPCText = 440;
         margin = 20;
 
@@ -69,6 +71,10 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
         selectBox = new Rectangle(0, 120, 800, 40);
 
         input = new Input(level, this);
+
+        //font params
+        parameter.size = 24;
+        font = generator.generateFont(parameter);
     }
 
     public void setSet(int set) {
@@ -77,6 +83,13 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
 
 
     public void render(float delta) {
+        input.dialog();
+
+        Gdx.gl.glClearColor(0, 0, 0, 0.5f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
+
         if (currentSet == 1) {
             if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) setSet(2);
             if (counter == 1 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
@@ -89,11 +102,11 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
         if (currentSet == 2) {
             if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
                 ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
-                level.guard.active = false;
+                level.guard.talkative = false;
             }
             if (counter == 1 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
                 ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
-                level.guard.active = false;
+                level.guard.talkative = false;
             }
             if (counter == 2 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) ) setSet(3);
         }
@@ -104,8 +117,8 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
                     Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)) {
 
                 ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
-                level.guard.active = false;
-                level.guard2.active = false;
+                level.guard.talkative = false;
+                level.guard2.talkative = false;
             }
         }
 
@@ -114,12 +127,9 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
         CharSequence str2 = dialog.option2;
         CharSequence str3 = dialog.option3;
 
-        Gdx.gl.glClearColor(0, 0, 0, 0.5f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        if (counter == 0) selectBox.y = 120;
-        if (counter == 1) selectBox.y = 80;
-        if (counter == 2) selectBox.y = 40;
+        if (counter == 0) selectBox.y = 115;
+        if (counter == 1) selectBox.y = 75;
+        if (counter == 2) selectBox.y = 35;
 
         batch.begin();
         Art.dialogSelectSprite.setPosition(selectBox.x, selectBox.y);
@@ -131,14 +141,6 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
         font.draw(batch, str2, margin, pos2);
         font.draw(batch, str3, margin, pos3);
         batch.end();
-
-        input.dialog();
-
-        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
-            Sound.select.play(0.5f);
-            ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
-        }
-
     }
 
     @Override
@@ -163,6 +165,7 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
 
     @Override
     public void dispose() {
+        generator.dispose();
     }
 
 
