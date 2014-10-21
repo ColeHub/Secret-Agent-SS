@@ -94,9 +94,7 @@ public class Level implements com.badlogic.gdx.Screen {
         guard.sprite.draw(batch);
         guard2.sprite.draw(batch);
 
-        //this is temporary, will be:
-        //if(!inventory.contains(paper))
-        if(paper.inScene)
+        if (!player.inventory.contains(paper))
             paper.sprite.draw(batch);
 
         player.sprite.draw(batch);
@@ -174,6 +172,7 @@ public class Level implements com.badlogic.gdx.Screen {
             //(add paper to inventory arraylist)
             //(play sound)
             //(put text on screen: "PAPER GET")
+            player.inventory.add(paper);
             paper.inScene = false;
         }
 

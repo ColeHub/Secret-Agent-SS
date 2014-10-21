@@ -44,6 +44,7 @@ public class InventoryScreen implements com.badlogic.gdx.Screen {
         batch.begin();
         Art.inventorySprite.draw(batch);
 
+
         batch.end();
     }
 
