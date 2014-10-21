@@ -58,16 +58,6 @@ public class PauseMenu implements com.badlogic.gdx.Screen {
         }
 
         batch.begin();
-        int delay = 3000;
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                Art.splashSprite.draw(batch);
-            }
-        }, delay);
-        batch.end();
-
-        batch.begin();
         Art.pausedSprite.draw(batch);
 
         if (state == 0) {

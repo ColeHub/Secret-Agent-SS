@@ -102,6 +102,8 @@ public class Input {
 
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) ScreenManager.getInstance().show(Screen.PAUSEMENU);
 
+        if (Gdx.input.isKeyJustPressed(Keys.I)) ScreenManager.getInstance().show(Screen.INVENTORY);
+
     }
 
     public void dialog() {
@@ -126,5 +128,9 @@ public class Input {
 
             dialog.counted = dialog.counter;
         }
+    }
+
+    public void inventory() {
+        if (Gdx.input.isKeyJustPressed(Keys.I) || Gdx.input.isKeyJustPressed(Keys.ESCAPE) ) ScreenManager.getInstance().show(Screen.LEVEL);
     }
 }

@@ -38,4 +38,8 @@ public class Player {
         return result;
     }
 
+    //needs an arraylist containing inventory of items
+    //would be an arraylist of Object objects
+    //Arraylist<Object> and such
+
 }

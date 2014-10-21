@@ -21,6 +21,8 @@ public class Level implements com.badlogic.gdx.Screen {
     NPC guard;
     NPC guard2;
 
+    Object paper;
+
     FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Minecraftia-Regular.ttf"));
     FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
     //in-game font
@@ -57,6 +59,8 @@ public class Level implements com.badlogic.gdx.Screen {
 
         parameter.size = 32;
         font = generator.generateFont(parameter);
+
+        paper = new Object("Paper", Art.paperImg);
     }
 
     public void render(float delta) {
@@ -89,15 +93,25 @@ public class Level implements com.badlogic.gdx.Screen {
         //initialize objects and positions
         guard.sprite.draw(batch);
         guard2.sprite.draw(batch);
+
+        //this is temporary, will be:
+        //if(!inventory.contains(paper))
+        if(paper.inScene)
+            paper.sprite.draw(batch);
+
         player.sprite.draw(batch);
+
         guard.box.setPosition(globalOffset + 400, 480 / 4);
         guard2.box.setPosition(globalOffset + 700, 480 / 4);
+        paper.box.setPosition(globalOffset + 780, 150);
         guard.sprite.setPosition(guard.box.x, guard.box.y);
         guard2.sprite.setPosition(guard2.box.x, guard2.box.y);
         player.sprite.setPosition(player.box.x, player.box.y);
+        paper.sprite.setPosition(paper.box.x, paper.box.y);
 
         playerAnimate();
         npcEvents();
+        objectEvents();
 
         batch.end();
     }
@@ -151,6 +165,17 @@ public class Level implements com.badlogic.gdx.Screen {
                 ScreenManager.getInstance().showDialog(3, guard2);
             }
         }
+    }
+
+    public void objectEvents(){
+        if(Intersector.overlaps(player.box, paper.box)){
+            //will be:
+            //(add paper to inventory arraylist)
+            //(play sound)
+            //(put text on screen: "PAPER GET")
+            paper.inScene = false;
+        }
+
     }
 
     @Override

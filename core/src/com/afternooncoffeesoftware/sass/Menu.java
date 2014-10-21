@@ -56,16 +56,6 @@ public class Menu implements com.badlogic.gdx.Screen {
         }
 
         batch.begin();
-        int delay = 3000;
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                Art.splashSprite.draw(batch);
-            }
-        }, delay);
-        batch.end();
-
-        batch.begin();
         Art.titleSprite.draw(batch);
 
         if (state == 0) {

@@ -39,6 +39,13 @@ public enum Screen {
         protected com.badlogic.gdx.Screen getScreenInstance() {
             return ds = new DialogScreen(set, npc);
         }
+    },
+
+    INVENTORY {
+        @Override
+        protected com.badlogic.gdx.Screen getScreenInstance() {
+            return new InventoryScreen();
+        }
     };
 
     Level level;

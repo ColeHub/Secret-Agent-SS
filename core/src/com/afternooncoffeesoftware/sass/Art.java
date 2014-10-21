@@ -21,25 +21,36 @@ public class Art {
     public static Rectangle levelBgBox;
     public static Texture levelBgTexture;
     public static Sprite levelBgSprite;
-    public static Texture titleImg;
-    public static Texture lampImg;
-    public static Sprite titleSprite;
-    public static Sprite lampSprite;
 
+    //menu
+    public static Texture titleImg;
+    public static Sprite titleSprite;
+
+    //pause menu
     public static Texture pausedImg;
     public static Sprite pausedSprite;
     public static Texture resumeImg;
     public static Sprite resumeSprite;
 
+    //inventory
+    public static Texture inventoryImg;
+    public static Sprite inventorySprite;
+    public static Texture paperImg;
+    public static Sprite paperSprite;
+
+    //dialog
     public static Texture dialogSelectImg;
     public static Sprite dialogSelectSprite;
 
+    //object
     public static Texture objectImg;
     public static Sprite objectSprite;
 
+    //splash
     public static Texture splashImg;
     public static Sprite splashSprite;
 
+    //menu
     public static Texture startImg, exitImg, optionsImg;
     public static Sprite menuCurrentSprite;
 
@@ -103,11 +114,14 @@ public class Art {
         objectSprite.scale(4);
         objectSprite.setOrigin(0, 0);
 
+        inventoryImg = new Texture("inventory.png");
+        inventorySprite = new Sprite(inventoryImg);
+        inventorySprite.scale(3);
+        inventorySprite.setOrigin(0, 0);
+        inventorySprite.setPosition(0, 0);
 
-        lampImg = new Texture("lamp.png");
-        lampSprite = new Sprite(lampImg);
-        lampSprite.scale(4);
-        lampSprite.setPosition(200, 200);
+        paperImg = new Texture("paper.png");
+
 
         levelBgBox = new Rectangle();
         levelBgBox.x = 0;
