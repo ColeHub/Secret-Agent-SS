@@ -20,7 +20,7 @@ public class Sound {
         walk.setVolume(0.3f);
         splashTune = Gdx.audio.newMusic(Gdx.files.internal("splashtune.mp3"));
         splashTune.setVolume(0.5f);
-        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("testmeoyeah.wav"));
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("SpaceTheme2.wav"));
         menuMusic.setLooping(true);
 
     }

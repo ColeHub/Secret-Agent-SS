@@ -146,6 +146,7 @@ public class Level implements com.badlogic.gdx.Screen {
         }
     }
 
+
     public void npcEvents(){
         if (guard.talkative) {
             if (Intersector.overlaps(player.box, guard.box)) {

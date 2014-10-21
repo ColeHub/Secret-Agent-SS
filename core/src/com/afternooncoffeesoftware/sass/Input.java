@@ -20,12 +20,12 @@ public class Input {
     private int maxRight = 500;
 
     //sets the speed limit
-    private static final float MAX_MOVEMENT_SPEED = 200 * Gdx.graphics.getDeltaTime();
+    private static final float MAX_MOVEMENT_SPEED = 400 * Gdx.graphics.getDeltaTime();
     public static float oldVel = 0;
 
-    public static float transition_speed = 3f;
+    public static float transition_speed = 4f;
     public static float newVel = 0f;
-    public static float endVel = 200 * Gdx.graphics.getDeltaTime();
+    public static float endVel = 400 * Gdx.graphics.getDeltaTime();
 
 
     public Input(final Level level) {
