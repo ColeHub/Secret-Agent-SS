@@ -25,7 +25,7 @@ public class Input {
 
     public static float transition_speed = 4f;
     public static float newVel = 0f;
-    public static float endVel = 400 * Gdx.graphics.getDeltaTime();
+    public static float endVel = 350 * Gdx.graphics.getDeltaTime();
 
 
     public Input(final Level level) {
@@ -43,62 +43,70 @@ public class Input {
     }
 
     public void level(Player player) {
-        if (!walkLeft && !walkRight) {
-            newVel = 0f;
-            oldVel = 0f;
-        }
-
-
-        if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
-            newVel = oldVel * (1 - Gdx.graphics.getDeltaTime() * transition_speed)
-                    + endVel * (Gdx.graphics.getDeltaTime() * transition_speed);
-            Gdx.app.log("New Velocity", String.valueOf(newVel));
-            Gdx.app.log("Old Velocity", String.valueOf(oldVel));
-
-            if (newVel < MAX_MOVEMENT_SPEED) {
-                player.box.x -= newVel;
-                oldVel = newVel;
-            }
-                else {
-                player.box.x -= MAX_MOVEMENT_SPEED;
+            //scrubs acceleration if stopped
+            if (!walkLeft && !walkRight) {
+                newVel = 0f;
+                oldVel = 0f;
             }
 
-            walkLeft = true;
-            if (player.box.x <= maxLeft) {
-                player.box.x = maxLeft;
-                //move global offset
-                if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A))
-                    level.globalOffset += newVel;
+            if ((Gdx.input.isKeyPressed(Keys.LEFT)^Gdx.input.isKeyPressed(Keys.RIGHT))&&(Gdx.input.isKeyPressed(Keys.LEFT))) {
+                walkLeft = true;
+                //calculate acceleration
+                newVel = oldVel * (1 - Gdx.graphics.getDeltaTime() * transition_speed)
+                        + endVel * (Gdx.graphics.getDeltaTime() * transition_speed);
+                //log velocity and walking states
+                Gdx.app.log("Left Velocity", String.valueOf(newVel));
+                Gdx.app.log("walkLeft = ", String.valueOf(walkLeft));
+                Gdx.app.log("walkRight = ", String.valueOf(walkRight));
+                //set velocity to max if calculated velocity is over max
+                if (newVel < MAX_MOVEMENT_SPEED) {
+                    player.box.x -= newVel;
+                    oldVel = newVel;
+                } else {
+                    player.box.x -= MAX_MOVEMENT_SPEED;
+                }
+
+
+                if (player.box.x <= maxLeft) {
+                    player.box.x = maxLeft;
+                    //move global offset
+                    if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A))
+                        level.globalOffset += newVel;
+                }
+
+            } else {
+                walkLeft = false;
             }
 
-        } else {
 
-            walkLeft = false;
+            if ((Gdx.input.isKeyPressed(Keys.RIGHT)^Gdx.input.isKeyPressed(Keys.LEFT))&&(Gdx.input.isKeyPressed(Keys.RIGHT))) {
+                walkRight = true;
+                //calculate acceleration
+                newVel = oldVel * (1 - Gdx.graphics.getDeltaTime() * transition_speed)
+                        + endVel * (Gdx.graphics.getDeltaTime() * transition_speed);
+                //log velocity and walking states
+                Gdx.app.log("Right Velocity", String.valueOf(newVel));
+                Gdx.app.log("walkLeft = ", String.valueOf(walkLeft));
+                Gdx.app.log("walkRight = ", String.valueOf(walkRight));
+                //set velocity to max if calculated velocity is over max
+                if (newVel < MAX_MOVEMENT_SPEED) {
+                    player.box.x += newVel;
+                    oldVel = newVel;
+                } else {
+                    player.box.x += MAX_MOVEMENT_SPEED;
+                }
 
-        }
 
-
-        if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) {
-            newVel = oldVel * (1 - Gdx.graphics.getDeltaTime() * transition_speed)
-                    + endVel * (Gdx.graphics.getDeltaTime() * transition_speed);
-            if (newVel < MAX_MOVEMENT_SPEED) {
-                player.box.x += newVel;
-                oldVel = newVel;
+                if (player.box.x >= maxRight) {
+                    player.box.x = maxRight;
+                    //move global offset
+                    if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D))
+                        level.globalOffset -= newVel;
+                }
+            } else {
+                walkRight = false;
             }
-            else {
-                player.box.x += MAX_MOVEMENT_SPEED;
-            }
 
-            walkRight = true;
-            if (player.box.x >= maxRight) {
-                player.box.x = maxRight;
-                //move global offset
-                if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D))
-                    level.globalOffset -= newVel;
-            }
-        } else {
-            walkRight = false;
-        }
 
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) ScreenManager.getInstance().show(Screen.PAUSEMENU);
 
