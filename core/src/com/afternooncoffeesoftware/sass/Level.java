@@ -27,9 +27,11 @@ public class Level implements com.badlogic.gdx.Screen {
 
     FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Minecraftia-Regular.ttf"));
     FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
     //in-game font
 
     BitmapFont font = new BitmapFont();
+    BitmapFont helperFont = new BitmapFont();
 
     public static TextureRegion currentFrame;
     boolean last = false;
@@ -60,7 +62,9 @@ public class Level implements com.badlogic.gdx.Screen {
         stateTime = 0f;
 
         parameter.size = 32;
+        parameter2.size = 16;
         font = generator.generateFont(parameter);
+        helperFont = generator.generateFont(parameter2);
 
         paper = new Object("Paper", Art.paperImg);
         ball = new Object("Ball", Art.ballImg);
@@ -83,10 +87,8 @@ public class Level implements com.badlogic.gdx.Screen {
         //render scene
         batch.begin();
         Art.levelBgSprite.draw(batch);
-        if(globalOffset > -800)
-            Art.levelBgSprite.setPosition(Art.levelBgBox.x, Art.levelBgBox.y);
-        if(globalOffset < -800)
-            Art.levelBgSprite.setPosition(Art.levelBgBox.x+1600, Art.levelBgBox.y);
+        Art.levelBgSprite.setPosition(Art.levelBgBox.x, Art.levelBgBox.y);
+
         //debugging
         //debugFont.draw(batch, str, 10, 400);
 
@@ -100,16 +102,16 @@ public class Level implements com.badlogic.gdx.Screen {
         if (!player.inventory.contains(paper))
             paper.sprite.draw(batch);
 
+        player.sprite.draw(batch);
+
         if (!player.inventory.contains(ball))
             ball.sprite.draw(batch);
-
-        player.sprite.draw(batch);
 
         guard.box.setPosition(globalOffset + 400, 480 / 4);
         guard2.box.setPosition(globalOffset + 700, 480 / 4);
 
         paper.box.setPosition(globalOffset + 780, 150);
-        ball.box.setPosition(globalOffset + 200, 120);
+        ball.box.setPosition(globalOffset + 200, 80);
 
         guard.sprite.setPosition(guard.box.x, guard.box.y);
         guard2.sprite.setPosition(guard2.box.x, guard2.box.y);
@@ -182,8 +184,12 @@ public class Level implements com.badlogic.gdx.Screen {
     public void intersectAdd(Object obj) {
         if (Intersector.overlaps(player.box, obj.box)) {
             if (!player.inventory.contains(obj)) {
-                if (player.inventory.size() <= 6) {
-                    player.inventory.add(obj);
+                helperFont.draw(batch, "<E> !", player.box.x, player.box.y + 90);
+                if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.E)) {
+                    if (player.inventory.size() <= 6) {
+                        player.inventory.add(obj);
+                        obj.box.setPosition(0, 0);
+                    }
                 }
             }
         }
