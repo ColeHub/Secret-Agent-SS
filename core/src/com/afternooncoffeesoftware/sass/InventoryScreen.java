@@ -92,16 +92,18 @@ public class InventoryScreen implements com.badlogic.gdx.Screen {
         //WILL BE REVISTED
         //BUT YOU GET THE IDEA
 
-        if (Gdx.input.isButtonPressed(0) && Intersector.overlaps(obj[0].box, mouseBox)) {
-            obj[0].isDragged = true;
-        } else if (Gdx.input.isButtonPressed(0) && !Intersector.overlaps(obj[0].box, mouseBox)) {
-            obj[0].isDragged = true;
-        }
+        if (obj[0] != null) {
+            if (Gdx.input.isButtonPressed(0) && Intersector.overlaps(obj[0].box, mouseBox)) {
+                obj[0].isDragged = true;
+            } else if (Gdx.input.isButtonPressed(0) && !Intersector.overlaps(obj[0].box, mouseBox)) {
+                obj[0].isDragged = true;
+            }
 
-        if (obj[0].isDragged) {
-            obj[0].box.setPosition(x, 480 - y);
-            obj[0].sprite.setPosition(obj[0].box.x, obj[0].box.y);
-            obj[0].sprite.draw(batch);
+            if (obj[0].isDragged) {
+                obj[0].box.setPosition(x, 480 - y);
+                obj[0].sprite.setPosition(obj[0].box.x, obj[0].box.y);
+                obj[0].sprite.draw(batch);
+            }
         }
 
 
