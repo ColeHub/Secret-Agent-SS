@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.*;
+
+import java.awt.*;
 
 /**
  * Created by cole on 2014-10-10.
@@ -21,7 +23,7 @@ public class Level implements com.badlogic.gdx.Screen {
     NPC guard;
     NPC guard2;
 
-    Object paper;
+    Object paper, ball;
 
     FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Minecraftia-Regular.ttf"));
     FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -61,6 +63,7 @@ public class Level implements com.badlogic.gdx.Screen {
         font = generator.generateFont(parameter);
 
         paper = new Object("Paper", Art.paperImg);
+        ball = new Object("Ball", Art.ballImg);
     }
 
     public void render(float delta) {
@@ -85,10 +88,10 @@ public class Level implements com.badlogic.gdx.Screen {
         if(globalOffset < -800)
             Art.levelBgSprite.setPosition(Art.levelBgBox.x+1600, Art.levelBgBox.y);
         //debugging
-        debugFont.draw(batch, str, 10, 400);
+        //debugFont.draw(batch, str, 10, 400);
 
         font.draw(batch, "GET TO THE MEETING", 200, 440);
-        font.draw(batch, "globalOffset: " + globalOffset, 200, 400);
+        font.draw(batch, "Items in inventory: " + player.inventory.size(), 200, 400);
 
         //initialize objects and positions
         guard.sprite.draw(batch);
@@ -97,15 +100,23 @@ public class Level implements com.badlogic.gdx.Screen {
         if (!player.inventory.contains(paper))
             paper.sprite.draw(batch);
 
+        if (!player.inventory.contains(ball))
+            ball.sprite.draw(batch);
+
         player.sprite.draw(batch);
 
         guard.box.setPosition(globalOffset + 400, 480 / 4);
         guard2.box.setPosition(globalOffset + 700, 480 / 4);
+
         paper.box.setPosition(globalOffset + 780, 150);
+        ball.box.setPosition(globalOffset + 200, 120);
+
         guard.sprite.setPosition(guard.box.x, guard.box.y);
         guard2.sprite.setPosition(guard2.box.x, guard2.box.y);
         player.sprite.setPosition(player.box.x, player.box.y);
+
         paper.sprite.setPosition(paper.box.x, paper.box.y);
+        ball.sprite.setPosition(ball.box.x, ball.box.y);
 
         playerAnimate();
         npcEvents();
@@ -148,34 +159,34 @@ public class Level implements com.badlogic.gdx.Screen {
     public void npcEvents(){
         if (guard.talkative) {
             if (Intersector.overlaps(player.box, guard.box)) {
-                //game.setScreen(new DialogScreen(game, 1, guard));
                 ScreenManager.getInstance().showDialog(1, guard);
             }
         }
         //restarts conversation with not active guard with SPACE BAR
         else {
             if (Intersector.overlaps(player.box, guard.box) && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE))
-                //game.setScreen(new DialogScreen(game, 3, guard));
                 ScreenManager.getInstance().showDialog(3, guard);
         }
         if (guard2.talkative) {
             if (Intersector.overlaps(player.box, guard2.box)) {
-                //game.setScreen(new DialogScreen(game, 3, guard2));
                 ScreenManager.getInstance().showDialog(3, guard2);
             }
         }
     }
 
     public void objectEvents(){
-        if(Intersector.overlaps(player.box, paper.box)){
-            //will be:
-            //(add paper to inventory arraylist)
-            //(play sound)
-            //(put text on screen: "PAPER GET")
-            player.inventory.add(paper);
-            paper.inScene = false;
-        }
+        intersectAdd(paper);
+        intersectAdd(ball);
+    }
 
+    public void intersectAdd(Object obj) {
+        if (Intersector.overlaps(player.box, obj.box)) {
+            if (!player.inventory.contains(obj)) {
+                if (player.inventory.size() <= 6) {
+                    player.inventory.add(obj);
+                }
+            }
+        }
     }
 
     @Override

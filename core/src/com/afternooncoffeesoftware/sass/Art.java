@@ -36,7 +36,7 @@ public class Art {
     public static Texture inventoryImg;
     public static Sprite inventorySprite;
     public static Texture paperImg;
-    public static Sprite paperSprite;
+    public static Texture ballImg;
 
     //dialog
     public static Texture dialogSelectImg;
@@ -121,7 +121,7 @@ public class Art {
         inventorySprite.setPosition(0, 0);
 
         paperImg = new Texture("paper.png");
-
+        ballImg = new Texture("ball.png");
 
         levelBgBox = new Rectangle();
         levelBgBox.x = 0;

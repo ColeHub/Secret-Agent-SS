@@ -15,9 +15,11 @@ public class Object {
     public Rectangle box;
     public Sprite sprite;
     private String name;
+    public boolean isDragged;
 
     public Object(final String name, Texture texture){
         inScene = true;
+        isDragged = false;
         box = new Rectangle();
         box.setHeight(64);
         box.setWidth(64);
@@ -29,9 +31,24 @@ public class Object {
         sprite.scale(1);
     }
 
+    public Object(final Object o) {
+        this.box = new Rectangle();
+        this.inScene = o.inScene;
+        this.box.setHeight(64);
+        this.box.setWidth(64);
+        this.name = o.name;
+        this.sprite = new Sprite(o.sprite.getTexture());
+        this.sprite.scale(1);
+    }
+
     public String getName(){
         return name;
     }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
 
     public void dispose(){
         this.dispose();
