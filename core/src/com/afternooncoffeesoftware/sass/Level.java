@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.awt.*;
 
@@ -33,6 +34,10 @@ public class Level implements com.badlogic.gdx.Screen {
     BitmapFont font = new BitmapFont();
     BitmapFont helperFont = new BitmapFont();
 
+
+    int x = 0, y = 0;
+    Rectangle mouseBox;
+
     public static TextureRegion currentFrame;
     boolean last = false;
 
@@ -53,7 +58,7 @@ public class Level implements com.badlogic.gdx.Screen {
         debugFont.setColor(1.0f, 0.0f, 0.0f, 1.0f);
 
         // x was 800/3*2 = 533.333
-        player = new Player(500, (480 / 4));
+        player = new Player(500, 50);
 
         guard = new NPC(Art.nekkidImg);
         guard2 = new NPC(Art.nekkidImg);
@@ -68,15 +73,22 @@ public class Level implements com.badlogic.gdx.Screen {
 
         paper = new Object("Paper", Art.paperImg);
         ball = new Object("Ball", Art.ballImg);
+
+
+        mouseBox = new Rectangle(0, 0, 2, 2);
     }
 
     public void render(float delta) {
         input.level(player);
 
-
+        //set mouse x and y
+        x = Gdx.input.getX();
+        y = Gdx.input.getY();
+        mouseBox.setPosition(x - (mouseBox.getWidth() / 2), 480 - y - (mouseBox.getHeight() / 2));
 
         //debugging string
         CharSequence str = player.toString();
+        CharSequence str2 = "Box found!";
 
         //set up a white canvas
         Gdx.gl.glClearColor(0.8f, 0.2f, 0.2f, 1);
@@ -90,35 +102,29 @@ public class Level implements com.badlogic.gdx.Screen {
         Art.levelBgSprite.setPosition(Art.levelBgBox.x, Art.levelBgBox.y);
 
         //debugging
-        //debugFont.draw(batch, str, 10, 400);
+        if (Intersector.overlaps(mouseBox, player.box)) debugFont.draw(batch, str2, 10, 400);
 
         font.draw(batch, "GET TO THE MEETING", 200, 440);
         font.draw(batch, "Items in inventory: " + player.inventory.size(), 200, 400);
 
         //initialize objects and positions
-        guard.sprite.draw(batch);
-        guard2.sprite.draw(batch);
+        guard.draw(batch);
+        guard2.draw(batch);
 
         if (!player.inventory.contains(paper))
-            paper.sprite.draw(batch);
+            paper.draw(batch);
 
-        player.sprite.draw(batch);
+        player.draw(batch);
 
         if (!player.inventory.contains(ball))
-            ball.sprite.draw(batch);
+            ball.draw(batch);
 
-        guard.box.setPosition(globalOffset + 400, 480 / 4);
-        guard2.box.setPosition(globalOffset + 700, 480 / 4);
+        guard.setPosition(globalOffset + 400, 90);
+        guard2.setPosition(globalOffset + 700, 90);
 
-        paper.box.setPosition(globalOffset + 780, 150);
-        ball.box.setPosition(globalOffset + 200, 80);
-
-        guard.sprite.setPosition(guard.box.x, guard.box.y);
-        guard2.sprite.setPosition(guard2.box.x, guard2.box.y);
-        player.sprite.setPosition(player.box.x, player.box.y);
-
-        paper.sprite.setPosition(paper.box.x, paper.box.y);
-        ball.sprite.setPosition(ball.box.x, ball.box.y);
+        paper.setPosition(globalOffset + 780, 150);
+        ball.setPosition(globalOffset + 200, 80);
+        player.setPosition(player.box.x, player.box.y);
 
         playerAnimate();
         npcEvents();
@@ -184,7 +190,7 @@ public class Level implements com.badlogic.gdx.Screen {
     public void intersectAdd(Object obj) {
         if (Intersector.overlaps(player.box, obj.box)) {
             if (!player.inventory.contains(obj)) {
-                helperFont.draw(batch, "<E> !", player.box.x, player.box.y + 90);
+                helperFont.draw(batch, "<E>", player.getCenterX(), player.getCenterY() + 140);
                 if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.E)) {
                     if (player.inventory.size() <= 6) {
                         player.inventory.add(obj);

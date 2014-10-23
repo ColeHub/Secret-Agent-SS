@@ -23,8 +23,8 @@ public class InventoryScreen implements com.badlogic.gdx.Screen {
     OrthographicCamera camera;
     public static SpriteBatch batch;
     public static Object[] obj = new Object[6];
-    int[] posX = {148, 244, 400};
-    int[] posY = {248, 200};
+    int[] posX = {124, 220, 400};
+    int[] posY = {224, 200};
     ArrayList<Object> inventory;
 
     BitmapFont font;
@@ -33,6 +33,7 @@ public class InventoryScreen implements com.badlogic.gdx.Screen {
 
     int x = 0, y = 0;
     Rectangle mouseBox;
+    boolean isDragged, overlapping = false;
 
     public InventoryScreen() {
         level = ScreenManager.getInstance().getLevel(com.afternooncoffeesoftware.sass.Screen.LEVEL);
@@ -45,7 +46,7 @@ public class InventoryScreen implements com.badlogic.gdx.Screen {
         input = new Input(level);
 
         font = new BitmapFont();
-        mouseBox = new Rectangle(0, 0, 8, 8);
+        mouseBox = new Rectangle(0, 0, 2, 2);
 
 
     }
@@ -53,59 +54,64 @@ public class InventoryScreen implements com.badlogic.gdx.Screen {
     @Override
     public void render(float delta) {
 
+        //add items in list to inventoryscreen object array
         for (int i = 0; i <= inventory.size() - 1; i++) {
             obj[i] = new Object(inventory.get(i));
         }
 
+        //set mouse x and y
         x = Gdx.input.getX();
         y = Gdx.input.getY();
-        mouseBox.setPosition(x, 480 - y);
+        mouseBox.setPosition(x - (mouseBox.getWidth() / 2), 480 - y - (mouseBox.getHeight() / 2));
 
         //debugging string
         CharSequence str = "X: " + x + " Y: " + y;
 
+        //set input mode
         input.inventory();
 
+        //init
         Gdx.gl.glClearColor(1, 1, 1, 0.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
+        //draw
         batch.begin();
         Art.inventorySprite.draw(batch);
 
         //debugging
         font.draw(batch, str, 10, 400);
 
+        //draw objects in proper position
         for (int j = 0; j < 6; j++) {
-            if (obj[j] != null && !obj[j].isDragged) {
-                if (j <= 3) obj[j].box.setPosition(posX[j], posY[0]);
-                if (j < 6 && j > 3) obj[j].box.setPosition(posX[j], posY[1]);
-                obj[j].sprite.setPosition(obj[j].box.x, obj[j].box.y);
-                obj[j].sprite.scale(2);
-                obj[j].sprite.draw(batch);
+            if (obj[j] != null) {
+                if (j <= 3) obj[j].setPosition(posX[j], posY[0]);
+                if (j < 6 && j > 3) obj[j].setPosition(posX[j], posY[1]);
+                obj[j].setScale(4);
+                obj[j].draw(batch);
             }
         }
 
-        //BELOW IS POORLY OPTOMIZED
-        //WILL BE REVISTED
-        //BUT YOU GET THE IDEA
-
-        if (obj[0] != null) {
-            if (Gdx.input.isButtonPressed(0) && Intersector.overlaps(obj[0].box, mouseBox)) {
-                obj[0].isDragged = true;
-            } else if (Gdx.input.isButtonPressed(0) && !Intersector.overlaps(obj[0].box, mouseBox)) {
-                obj[0].isDragged = true;
-            }
-
-            if (obj[0].isDragged) {
-                obj[0].box.setPosition(x, 480 - y);
-                obj[0].sprite.setPosition(obj[0].box.x, obj[0].box.y);
-                obj[0].sprite.draw(batch);
+        //handle dragging
+        for (Object anObj : obj) {
+            if (anObj != null) {
+                if (Gdx.input.isButtonPressed(0)) {
+                    isDragged = true;
+                    if (Intersector.overlaps(anObj.box, mouseBox)) {
+                        isDragged = true;
+                        overlapping = true;
+                    }
+                    if (isDragged && overlapping) {
+                        anObj.setPosition(x - (anObj.sprite.getWidth() / 2), 480 - y - (anObj.sprite.getHeight() / 2));
+                        anObj.sprite.draw(batch);
+                    }
+                } else {
+                    isDragged = false;
+                    overlapping = false;
+                }
             }
         }
-
 
         batch.end();
     }
