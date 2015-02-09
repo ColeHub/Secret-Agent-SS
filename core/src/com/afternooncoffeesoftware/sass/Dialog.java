@@ -30,4 +30,24 @@ public class Dialog {
         option3 = "";
     }
 
+    public static void entranceGuard1Set1() {
+        textNPC = "We're guarding the entrance to make sure no one gets in!";
+        option1 = "You're doing a great job.";
+        option2 = "That's so interesting...";
+        option3 = "A sundried grapefruit could do a better job than you.";
+    }
+
+    public static void entranceGuard1Set2() {
+        textNPC = "Thank you so much!";
+        option1 = "";
+        option2 = "";
+        option3 = "";
+    }
+    public static void entranceGuard1Set3() {
+        textNPC = "Shows what you know. Sundried grapefruits don't even have eyes.";
+        option1 = "";
+        option2 = "";
+        option3 = "";
+    }
+
 }

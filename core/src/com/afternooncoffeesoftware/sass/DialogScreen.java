@@ -1,13 +1,9 @@
 package com.afternooncoffeesoftware.sass;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
@@ -47,6 +43,15 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
                 break;
             case 3:
                 dialog.set3();
+                break;
+            case 4:
+                dialog.entranceGuard1Set1();
+                break;
+            case 5:
+                dialog.entranceGuard1Set2();
+                break;
+            case 6:
+                dialog.entranceGuard1Set3();
                 break;
             default:
                 break;
@@ -88,6 +93,8 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
         Gdx.gl.glClearColor(0, 0, 0, 0.5f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        level.entranceGuard1.talkative = false;
+
 
 
         if (currentSet == 1) {
@@ -121,6 +128,20 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
                 level.guard2.talkative = false;
             }
         }
+        //controls the flow of the entranceGuard1 conversation
+        if (currentSet == 4) {
+            if ((counter == 0 || counter == 1) && input.enterButtonIsPressed())
+                setSet(5);
+            }
+            if (counter == 2 && input.enterButtonIsPressed()) {
+                setSet(6);
+            }
+        if (currentSet == 5 || currentSet == 6) {
+            if (input.enterButtonIsPressed()) {
+                ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
+            }
+        }
+
 
         CharSequence strNPC = dialog.textNPC;
         CharSequence str1 = dialog.option1;

@@ -41,6 +41,14 @@ public class Input {
         if (Gdx.input.isKeyPressed(Keys.ESCAPE)) Gdx.app.exit();
 
     }
+    public boolean enterButtonIsPressed() {
+        boolean isPressed = false;
+        if (Gdx.input.isKeyJustPressed(Keys.SPACE)
+                || Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+            isPressed = true;
+        }
+        return isPressed;
+    }
 
     public void level(Player player) {
             //scrubs acceleration if stopped

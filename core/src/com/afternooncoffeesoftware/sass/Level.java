@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.math.Rectangle;
 
-import java.awt.*;
-
 /**
  * Created by cole on 2014-10-10.
  */
@@ -23,6 +21,7 @@ public class Level implements com.badlogic.gdx.Screen {
     SpriteBatch batch;
     NPC guard;
     NPC guard2;
+    NPC entranceGuard1;
 
     Object paper, ball;
 
@@ -62,6 +61,7 @@ public class Level implements com.badlogic.gdx.Screen {
 
         guard = new NPC(Art.nekkidImg);
         guard2 = new NPC(Art.nekkidImg);
+        entranceGuard1 = new NPC(Art.nekkidImg);
 
         input = new Input(this);
         stateTime = 0f;
@@ -110,6 +110,7 @@ public class Level implements com.badlogic.gdx.Screen {
         //initialize objects and positions
         guard.draw(batch);
         guard2.draw(batch);
+        entranceGuard1.draw(batch);
 
         if (!player.inventory.contains(paper))
             paper.draw(batch);
@@ -121,6 +122,7 @@ public class Level implements com.badlogic.gdx.Screen {
 
         guard.setPosition(globalOffset + 400, 90);
         guard2.setPosition(globalOffset + 700, 90);
+        entranceGuard1.setPosition(globalOffset + 1000, 90);
 
         paper.setPosition(globalOffset + 780, 150);
         ball.setPosition(globalOffset + 200, 80);
@@ -180,7 +182,15 @@ public class Level implements com.badlogic.gdx.Screen {
                 ScreenManager.getInstance().showDialog(3, guard2);
             }
         }
-    }
+        //talks to an entrance guard only if space is pressed
+        if (!entranceGuard1.talkative) {
+            if (Intersector.overlaps(player.box, entranceGuard1.box)) {
+                if (Intersector.overlaps(player.box, entranceGuard1.box) && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE))
+                    ScreenManager.getInstance().showDialog(4, entranceGuard1);
+            }
+            }
+        }
+
 
     public void objectEvents(){
         intersectAdd(paper);
