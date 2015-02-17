@@ -49,6 +49,20 @@ public class Input {
         }
         return isPressed;
     }
+    public boolean rightIsPressed() {
+        boolean isPressed = false;
+        if (Gdx.input.isKeyPressed(Keys.D)
+                || Gdx.input.isKeyPressed(Keys.RIGHT))
+            isPressed = true;
+        return isPressed;
+    }
+    public boolean leftIsPressed() {
+        boolean isPressed = false;
+        if (Gdx.input.isKeyPressed(Keys.A)
+                || Gdx.input.isKeyPressed(Keys.LEFT))
+            isPressed = true;
+        return isPressed;
+    }
 
     public void level(Player player) {
             //scrubs acceleration if stopped
@@ -57,7 +71,7 @@ public class Input {
                 oldVel = 0f;
             }
 
-            if ((Gdx.input.isKeyPressed(Keys.LEFT)^Gdx.input.isKeyPressed(Keys.RIGHT))&&(Gdx.input.isKeyPressed(Keys.LEFT))) {
+            if ((rightIsPressed() ^ leftIsPressed()) && leftIsPressed()) {
                 walkLeft = true;
                 //calculate acceleration
                 newVel = oldVel * (1 - Gdx.graphics.getDeltaTime() * transition_speed)
@@ -87,7 +101,7 @@ public class Input {
             }
 
 
-            if ((Gdx.input.isKeyPressed(Keys.RIGHT)^Gdx.input.isKeyPressed(Keys.LEFT))&&(Gdx.input.isKeyPressed(Keys.RIGHT))) {
+        if ((rightIsPressed() ^ leftIsPressed()) && rightIsPressed()) {
                 walkRight = true;
                 //calculate acceleration
                 newVel = oldVel * (1 - Gdx.graphics.getDeltaTime() * transition_speed)

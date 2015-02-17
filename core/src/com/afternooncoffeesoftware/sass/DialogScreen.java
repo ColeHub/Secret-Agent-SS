@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.Input.Keys;
 
 
 
@@ -99,31 +100,31 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
 
         //controls the flow of the guard conversations
         if (currentSet == 1) {
-            if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER))
+            if (counter == 0 && Gdx.input.isKeyJustPressed(Keys.ENTER))
                 setSet(2);
-            if (counter == 1 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER))
+            if (counter == 1 && Gdx.input.isKeyJustPressed(Keys.ENTER))
                 dialog.textNPC = "Sorry?";
-            if (counter == 2 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
+            if (counter == 2 && Gdx.input.isKeyJustPressed(Keys.ENTER)) {
                 dialog.textNPC = "...?";
             }
         }
         if (currentSet == 2) {
-            if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
+            if (counter == 0 && Gdx.input.isKeyJustPressed(Keys.ENTER)) {
                 ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
                 level.guard.talkative = false;
             }
-            if (counter == 1 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
+            if (counter == 1 && Gdx.input.isKeyJustPressed(Keys.ENTER)) {
                 ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
                 level.guard.talkative = false;
             }
-            if (counter == 2 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) )
+            if (counter == 2 && Gdx.input.isKeyJustPressed(Keys.ENTER) )
                 setSet(3);
         }
 
         if (currentSet == 3) {
             Art.dialogSelectSprite.setColor(0,0,0,0.2f);
-            if (counter < 3 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) ||
-                    Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)) {
+            if (counter < 3 && Gdx.input.isKeyJustPressed(Keys.ENTER) ||
+                    Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 
                 ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
                 level.guard.talkative = false;
@@ -132,12 +133,15 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
         }
         //controls the flow of the entranceGuard1 conversation
         if (currentSet == 4) {
-            if ((counter == 0 || counter == 1) && input.enterButtonIsPressed())
+            if ((counter == 0 || counter == 1) && input.enterButtonIsPressed()) {
                 setSet(5);
+                Art.dialogSelectSprite.setColor(0, 0, 0, 0.2f);
+            }
 
-            if (counter == 2 && input.enterButtonIsPressed())
+            if (counter == 2 && input.enterButtonIsPressed()) {
                 setSet(6);
             }
+        }
         if (currentSet == 5 || currentSet == 6) {
             if (input.enterButtonIsPressed()) {
                 ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
