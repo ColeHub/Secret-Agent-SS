@@ -93,48 +93,49 @@ public class InventoryScreen implements com.badlogic.gdx.Screen {
             }
         }
 
-        //handle dragging
-        for (Object anObj : obj) {
-            if (anObj != null) {
-                if (Gdx.input.isButtonPressed(0)) {
-                    isDragged = true;
-                    if (Intersector.overlaps(anObj.box, mouseBox)) {
-                        isDragged = true;
-                        overlapping = true;
-                    }
-                    if (isDragged && overlapping) {
-                        anObj.setPosition(x - (anObj.sprite.getWidth() / 2), 480 - y - (anObj.sprite.getHeight() / 2));
-                        anObj.sprite.draw(batch);
-                    }
-                } else {
-                    isDragged = false;
-                    overlapping = false;
-                }
-            }
-        }
-
 //        //handle dragging
-//        Object temp = null;
-//        if (Intersector.overlaps(inventory.get(0).box, mouseBox)) {
-//            isDragged = true;
-//            temp = inventory.get(0);
-//        }
-//        if (Intersector.overlaps(inventory.get(1).box, mouseBox)) {
-//            isDragged = true;
-//            temp = inventory.get(1);
-//        }
-//
-//        if (Gdx.input.isButtonPressed(0)) {
-//            isDragged = true;
-//            if (isDragged && temp.getName().equals(inventory.get(0).getName())) {
-//                inventory.get(0).box.setPosition(x - (inventory.get(0).sprite.getWidth() / 2), 480 - y - (inventory.get(0).sprite.getHeight() / 2));
+//        for (Object anObj : obj) {
+//            if (anObj != null) {
+//                if (Gdx.input.isButtonPressed(0)) {
+//                    isDragged = true;
+//                    if (Intersector.overlaps(anObj.box, mouseBox)) {
+//                        isDragged = true;
+//                        overlapping = true;
+//                    }
+//                    if (isDragged && overlapping) {
+//                        anObj.setPosition(x - (anObj.sprite.getWidth() / 2), 480 - y - (anObj.sprite.getHeight() / 2));
+//                        anObj.sprite.draw(batch);
+//                    }
+//                } else {
+//                    isDragged = false;
+//                    overlapping = false;
+//                }
 //            }
-//            if (isDragged && temp.getName().equals(inventory.get(1).getName())) {
-//                inventory.get(1).box.setPosition(x - (inventory.get(1).sprite.getWidth() / 2), 480 - y - (inventory.get(1).sprite.getHeight() / 2));
-//            }
-//        } else {
-//            isDragged = false;
 //        }
+
+        //handle dragging
+        Object temp;
+        if (Intersector.overlaps(inventory.get(0).box, mouseBox)) {
+            isDragged = true;
+            temp = inventory.get(0);
+        }
+        if (Intersector.overlaps(inventory.get(1).box, mouseBox)) {
+            isDragged = true;
+            temp = inventory.get(1);
+        } else
+            temp = inventory.get(0);
+
+        if (Gdx.input.isButtonPressed(0)) {
+            isDragged = true;
+            if (isDragged && temp.getName().equals(inventory.get(0).getName())) {
+                inventory.get(0).box.setPosition(x - (inventory.get(0).sprite.getWidth() / 2), 480 - y - (inventory.get(0).sprite.getHeight() / 2));
+            }
+            if (isDragged && temp.getName().equals(inventory.get(1).getName())) {
+                inventory.get(1).box.setPosition(x - (inventory.get(1).sprite.getWidth() / 2), 480 - y - (inventory.get(1).sprite.getHeight() / 2));
+            }
+        } else {
+            isDragged = false;
+        }
 
 
         batch.end();
