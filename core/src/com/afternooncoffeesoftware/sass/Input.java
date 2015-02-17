@@ -15,7 +15,9 @@ public class Input {
     DialogScreen dialog;
     Player player;
     public boolean walkRight = false;
+    public boolean faceRight = false;
     public boolean walkLeft = false;
+    public boolean fire = false;
     private int maxLeft = 300;
     private int maxRight = 500;
 
@@ -59,6 +61,7 @@ public class Input {
 
             if ((Gdx.input.isKeyPressed(Keys.LEFT)^Gdx.input.isKeyPressed(Keys.RIGHT))&&(Gdx.input.isKeyPressed(Keys.LEFT))) {
                 walkLeft = true;
+                faceRight = false;
                 //calculate acceleration
                 newVel = oldVel * (1 - Gdx.graphics.getDeltaTime() * transition_speed)
                         + endVel * (Gdx.graphics.getDeltaTime() * transition_speed);
@@ -89,6 +92,7 @@ public class Input {
 
             if ((Gdx.input.isKeyPressed(Keys.RIGHT)^Gdx.input.isKeyPressed(Keys.LEFT))&&(Gdx.input.isKeyPressed(Keys.RIGHT))) {
                 walkRight = true;
+                faceRight = true;
                 //calculate acceleration
                 newVel = oldVel * (1 - Gdx.graphics.getDeltaTime() * transition_speed)
                         + endVel * (Gdx.graphics.getDeltaTime() * transition_speed);
@@ -114,6 +118,12 @@ public class Input {
             } else {
                 walkRight = false;
             }
+
+        if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+            fire = true;
+        } else {
+            fire = false;
+        }
 
 
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) ScreenManager.getInstance().show(Screen.PAUSEMENU);

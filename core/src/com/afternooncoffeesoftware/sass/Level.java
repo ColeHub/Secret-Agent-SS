@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+
+import java.awt.*;
+import java.util.Iterator;
 
 /**
  * Created by cole on 2014-10-10.
@@ -33,6 +37,7 @@ public class Level implements com.badlogic.gdx.Screen {
     BitmapFont font = new BitmapFont();
     BitmapFont helperFont = new BitmapFont();
 
+    Array<Bullet> bullets;
 
     int x = 0, y = 0;
     Rectangle mouseBox;
@@ -76,6 +81,8 @@ public class Level implements com.badlogic.gdx.Screen {
 
 
         mouseBox = new Rectangle(0, 0, 2, 2);
+
+        bullets = new Array<Bullet>();
     }
 
     public void render(float delta) {
@@ -104,6 +111,10 @@ public class Level implements com.badlogic.gdx.Screen {
         //debugging
         if (Intersector.overlaps(mouseBox, player.box)) debugFont.draw(batch, str2, 10, 400);
 
+        if (input.fire) {
+            fireBullet();
+        }
+
         font.draw(batch, "GET TO THE MEETING", 200, 440);
         font.draw(batch, "Items in inventory: " + player.inventory.size(), 200, 400);
 
@@ -131,6 +142,7 @@ public class Level implements com.badlogic.gdx.Screen {
         playerAnimate();
         npcEvents();
         objectEvents();
+        iterBullets();
 
         batch.end();
     }
@@ -162,6 +174,32 @@ public class Level implements com.badlogic.gdx.Screen {
                 if (!Art.playerRegIdle.isFlipX()) Art.playerRegIdle.flip(true, false);
                 player.sprite.setRegion(Art.playerRegIdle);
             }
+        }
+    }
+
+    public void fireBullet() {
+        Bullet bullet;
+        if (input.faceRight) {
+            bullet = new Bullet(true);
+            bullet.setPosition(player.box.x + 30, 100);
+        } else {
+            bullet = new Bullet(false);
+            bullet.setPosition(player.box.x, 100);
+        }
+        bullets.add(bullet);
+    }
+
+    public void iterBullets() {
+        Iterator<Bullet> it = bullets.iterator();
+        while (it.hasNext()) {
+            Bullet b = it.next();
+            b.draw(batch);
+            int speed = 15;
+            if (b.facingRight())
+                b.box.x += speed;
+            else
+                b.box.x -= speed;
+            if (!b.visible()) it.remove();
         }
     }
 
