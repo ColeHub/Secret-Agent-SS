@@ -140,6 +140,8 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
 
             if (counter == 2 && input.enterButtonIsPressed()) {
                 setSet(6);
+                Art.dialogSelectSprite.setColor(0, 0, 0, 0.2f);
+
             }
         }
         if (currentSet == 5 || currentSet == 6) {

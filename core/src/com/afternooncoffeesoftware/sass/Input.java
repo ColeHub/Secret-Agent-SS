@@ -15,7 +15,7 @@ public class Input {
     DialogScreen dialog;
     Player player;
     public boolean walkRight = false;
-    public boolean faceRight = false;
+    public boolean faceRight = true;
     public boolean walkLeft = false;
     public boolean fire = false;
     private int maxLeft = 300;
