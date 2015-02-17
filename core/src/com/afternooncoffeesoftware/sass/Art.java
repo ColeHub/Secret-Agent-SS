@@ -56,6 +56,10 @@ public class Art {
     public static Texture startImg, exitImg, optionsImg;
     public static Sprite menuCurrentSprite;
 
+    //bullet
+    public static Texture bulletImg;
+    public static Sprite bulletSprite;
+
     //spritesheet animating test crap
     static Animation walkAnimation;
     static Texture sheet;
@@ -134,5 +138,10 @@ public class Art {
         levelBgSprite = new Sprite(levelBgTexture);
         levelBgSprite.scale(3);
         levelBgSprite.setOrigin(levelBgTexture.getWidth() / 2, 0);
+
+        bulletImg = new Texture("bullet.png");
+        bulletSprite = new Sprite(bulletImg);
+        bulletSprite.setScale(4);
+        bulletSprite.setOrigin(0, 0);
     }
 }

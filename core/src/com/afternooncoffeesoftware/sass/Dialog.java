@@ -11,7 +11,7 @@ public class Dialog {
 
     public static void set1() {
         textNPC = "You're going to be late for the meeting, get over there!";
-        option1 = "On my way!";
+        option1 = "Suck my butt!";
         option2 = "I don't take orders from dirtbags like you.";
         option3 = "...";
     }
@@ -44,6 +44,7 @@ public class Dialog {
         option2 = "";
         option3 = "";
     }
+
     public static void entranceGuard1Set3() {
         textNPC = "Shows what you know. Sundried grapefruits don't even have eyes.";
         option1 = "";
