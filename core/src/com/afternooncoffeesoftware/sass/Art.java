@@ -17,6 +17,8 @@ public class Art {
     public static SpriteBatch batch;
     public static OrthographicCamera camera;
     public static Texture nekkidImg;
+
+    //public static Texture nekkidImg2;
     public static TextureRegion playerRegIdle, playerRegIdleFlip;
     public static Rectangle levelBgBox;
     public static Texture levelBgTexture;

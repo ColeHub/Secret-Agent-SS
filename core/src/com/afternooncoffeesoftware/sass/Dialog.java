@@ -16,6 +16,7 @@ public class Dialog {
         option3 = "...";
     }
 
+
     public static void set2() {
         textNPC = "Grab your hat over there before stepping into the room.";
         option1 = "Okay.";

@@ -30,6 +30,7 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
 
     int pos1, pos2, pos3, posNPCText, currentSet;
     int margin;
+    int FONT_WRAP_WIDTH = Gdx.graphics.getWidth() - 30;
 
     public DialogScreen(int set, NPC npc) {
         this.npc = npc;
@@ -96,12 +97,12 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
         level.entranceGuard1.talkative = false;
 
 
-
+        //controls the flow of the guard conversations
         if (currentSet == 1) {
-            if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) setSet(2);
-            if (counter == 1 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
+            if (counter == 0 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER))
+                setSet(2);
+            if (counter == 1 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER))
                 dialog.textNPC = "Sorry?";
-            }
             if (counter == 2 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER)) {
                 dialog.textNPC = "...?";
             }
@@ -115,7 +116,8 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
                 ScreenManager.getInstance().show(com.afternooncoffeesoftware.sass.Screen.LEVEL);
                 level.guard.talkative = false;
             }
-            if (counter == 2 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) ) setSet(3);
+            if (counter == 2 && Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ENTER) )
+                setSet(3);
         }
 
         if (currentSet == 3) {
@@ -132,8 +134,8 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
         if (currentSet == 4) {
             if ((counter == 0 || counter == 1) && input.enterButtonIsPressed())
                 setSet(5);
-            }
-            if (counter == 2 && input.enterButtonIsPressed()) {
+
+            if (counter == 2 && input.enterButtonIsPressed())
                 setSet(6);
             }
         if (currentSet == 5 || currentSet == 6) {
@@ -157,7 +159,10 @@ public class DialogScreen implements com.badlogic.gdx.Screen {
         Art.dialogSelectSprite.draw(batch);
         npc.sprite.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         npc.sprite.draw(batch);
-        font.draw(batch, strNPC, margin, posNPCText);
+        //font.draw(batch, strNPC, margin, posNPCText);
+        //wraps the npc text
+        font.drawWrapped(batch, strNPC, margin, posNPCText, FONT_WRAP_WIDTH);
+
         font.draw(batch, str1, margin, pos1);
         font.draw(batch, str2, margin, pos2);
         font.draw(batch, str3, margin, pos3);
